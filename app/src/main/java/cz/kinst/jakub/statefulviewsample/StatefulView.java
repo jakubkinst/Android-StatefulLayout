@@ -14,29 +14,25 @@ import android.widget.TextView;
 public class StatefulView extends FrameLayout
 {
 	private ViewState mViewState = null;
-	private View mContainerContent;
+	private View mContent;
 	private FrameLayout mContainerProgress, mContainerOffline, mContainerEmpty;
-	private boolean mViewAlreadyTransformed = false;
 
 
 	public StatefulView(Context context)
 	{
 		super(context);
-		initialize();
 	}
 
 
 	public StatefulView(Context context, AttributeSet attrs)
 	{
 		super(context, attrs);
-		initialize();
 	}
 
 
 	public StatefulView(Context context, AttributeSet attrs, int defStyleAttr)
 	{
 		super(context, attrs, defStyleAttr);
-		initialize();
 	}
 
 
@@ -85,8 +81,8 @@ public class StatefulView extends FrameLayout
 	public void setViewState(ViewState viewState)
 	{
 		mViewState = viewState;
-		if(mContainerContent != null)
-			mContainerContent.setVisibility(viewState == ViewState.CONTENT ? View.VISIBLE : View.GONE);
+		if(mContent != null)
+			mContent.setVisibility(viewState == ViewState.CONTENT ? View.VISIBLE : View.GONE);
 		if(mContainerProgress != null)
 			mContainerProgress.setVisibility(viewState == ViewState.PROGRESS ? View.VISIBLE : View.GONE);
 		if(mContainerOffline != null)
@@ -98,18 +94,26 @@ public class StatefulView extends FrameLayout
 
 	private void initialize()
 	{
-		addView(LayoutInflater.from(getContext()).inflate(R.layout.view_stateful, this, false));
-		mContainerProgress = (FrameLayout) findViewById(R.id.container_progress);
-		mContainerOffline = (FrameLayout) findViewById(R.id.container_offline);
-		mContainerEmpty = (FrameLayout) findViewById(R.id.container_empty);
 	}
 
 
 	@Override
-	protected void onLayout(boolean changed, int left, int top, int right, int bottom)
+	protected void onFinishInflate()
 	{
-		mContainerContent = getChildAt(1);
-		setViewState(mViewState);
-		super.onLayout(changed, left, top, right, bottom);
+		super.onFinishInflate();
+		mContent = getChildAt(0);
+		addView(LayoutInflater.from(getContext()).inflate(R.layout.view_stateful, this, false));
+		mContainerProgress = (FrameLayout) findViewById(R.id.container_progress);
+		mContainerOffline = (FrameLayout) findViewById(R.id.container_offline);
+		mContainerEmpty = (FrameLayout) findViewById(R.id.container_empty);
+
+	}
+
+
+	@Override
+	protected void onAttachedToWindow()
+	{
+		super.onAttachedToWindow();
+		initialize();
 	}
 }
