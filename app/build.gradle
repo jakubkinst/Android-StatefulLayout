@@ -5,7 +5,6 @@ android {
 	buildToolsVersion "22.0.1"
 
 	defaultConfig {
-		applicationId "cz.kinst.jakub.statefulviewsample"
 		minSdkVersion 16
 		targetSdkVersion 22
 		versionCode 1

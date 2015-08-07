@@ -1,4 +1,4 @@
-package com.strv;
+package com.strv.view;
 
 
 public enum ViewState
