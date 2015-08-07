@@ -17,7 +17,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:gravity="center"
-			android:text="@string/placeholder_empty"/>
+			android:text="@string/default_placeholder_empty"/>
 
 	</LinearLayout>
 </ScrollView>

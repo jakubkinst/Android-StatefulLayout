@@ -10,7 +10,6 @@
 		android:layout_height="match_parent"
 		android:visibility="gone">
 
-		<include layout="@layout/placeholder_progress"/>
 	</FrameLayout>
 
 	<FrameLayout
@@ -19,7 +18,6 @@
 		android:layout_height="match_parent"
 		android:visibility="gone">
 
-		<include layout="@layout/placeholder_offline"/>
 	</FrameLayout>
 
 	<FrameLayout
@@ -28,6 +26,5 @@
 		android:layout_height="match_parent"
 		android:visibility="gone">
 
-		<include layout="@layout/placeholder_empty"/>
 	</FrameLayout>
 </FrameLayout>

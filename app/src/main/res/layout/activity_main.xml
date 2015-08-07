@@ -1,12 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  xmlns:app="http://schemas.android.com/apk/res-auto"
 			  xmlns:tools="http://schemas.android.com/tools"
 			  android:layout_width="match_parent"
 			  android:layout_height="match_parent"
 			  android:orientation="vertical"
-			  android:paddingBottom="@dimen/activity_vertical_margin"
-			  android:paddingLeft="@dimen/activity_horizontal_margin"
-			  android:paddingRight="@dimen/activity_horizontal_margin"
-			  android:paddingTop="@dimen/activity_vertical_margin"
+			  android:padding="@dimen/global_keyline_s"
 			  tools:context=".MainActivity">
 
 	<LinearLayout
@@ -49,16 +47,18 @@
 			android:text="EMPTY"/>
 	</LinearLayout>
 
-	<cz.kinst.jakub.statefulviewsample.StatefulView
+	<com.strv.StatefulView
 		android:id="@+id/stateful"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
-		android:layout_weight="1">
+		android:layout_weight="1"
+		app:offlineLayout="@layout/custom_placeholder_offline"
+		app:stateTextAppearance="@style/TextAppearance.AppCompat.Body1">
 
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
 			android:text="Content"/>
-	</cz.kinst.jakub.statefulviewsample.StatefulView>
+	</com.strv.StatefulView>
 </LinearLayout>

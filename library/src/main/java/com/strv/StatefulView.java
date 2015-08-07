@@ -1,6 +1,7 @@
-package cz.kinst.jakub.statefulviewsample;
+package com.strv;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import android.widget.TextView;
  */
 public class StatefulView extends FrameLayout
 {
+	private final int mTextAppearance;
+	private View mOfflineView, mEmptyView, mProgressView;
 	private ViewState mViewState = null;
 	private View mContent;
 	private FrameLayout mContainerProgress, mContainerOffline, mContainerEmpty;
@@ -20,19 +23,25 @@ public class StatefulView extends FrameLayout
 
 	public StatefulView(Context context)
 	{
-		super(context);
+		this(context, null);
 	}
 
 
 	public StatefulView(Context context, AttributeSet attrs)
 	{
-		super(context, attrs);
+		this(context, attrs, 0);
 	}
 
 
 	public StatefulView(Context context, AttributeSet attrs, int defStyleAttr)
 	{
 		super(context, attrs, defStyleAttr);
+		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.StatefulView);
+		mTextAppearance = a.getResourceId(R.styleable.StatefulView_stateTextAppearance, R.style.TextAppearanceStateDefault);
+		mOfflineView = LayoutInflater.from(context).inflate(a.getResourceId(R.styleable.StatefulView_offlineLayout, R.layout.default_placeholder_offline), null);
+		mEmptyView = LayoutInflater.from(context).inflate(a.getResourceId(R.styleable.StatefulView_emptyLayout, R.layout.default_placeholder_empty), null);
+		mProgressView = LayoutInflater.from(context).inflate(a.getResourceId(R.styleable.StatefulView_progressLayout, R.layout.default_placeholder_progress), null);
+
 	}
 
 
@@ -92,11 +101,6 @@ public class StatefulView extends FrameLayout
 	}
 
 
-	private void initialize()
-	{
-	}
-
-
 	@Override
 	protected void onFinishInflate()
 	{
@@ -104,8 +108,14 @@ public class StatefulView extends FrameLayout
 		mContent = getChildAt(0);
 		addView(LayoutInflater.from(getContext()).inflate(R.layout.view_stateful, this, false));
 		mContainerProgress = (FrameLayout) findViewById(R.id.container_progress);
+		mContainerProgress.addView(mProgressView);
 		mContainerOffline = (FrameLayout) findViewById(R.id.container_offline);
+		mContainerOffline.addView(mOfflineView);
 		mContainerEmpty = (FrameLayout) findViewById(R.id.container_empty);
+		mContainerEmpty.addView(mEmptyView);
+
+		((TextView) findViewById(R.id.placeholder_empty_text)).setTextAppearance(getContext(), mTextAppearance);
+		((TextView) findViewById(R.id.placeholder_empty_text)).setTextAppearance(getContext(), mTextAppearance);
 
 	}
 
@@ -115,5 +125,10 @@ public class StatefulView extends FrameLayout
 	{
 		super.onAttachedToWindow();
 		initialize();
+	}
+
+
+	private void initialize()
+	{
 	}
 }

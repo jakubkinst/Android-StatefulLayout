@@ -1,0 +1,5 @@
+<resources>
+	<style name="TextAppearanceStateDefault">
+		<item name="android:textSize">11dp</item>
+	</style>
+</resources>
