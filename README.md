@@ -8,13 +8,13 @@
 ### Example
 ```xml
 <com.strv.view.StatefulView
-		android:id="@+id/stateful_view"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent">
-
-		<!--Your Content Here-->
+	android:id="@+id/stateful_view"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+	
+	<!--Your Content Here-->
 		
-	</com.strv.view.StatefulView>
+</com.strv.view.StatefulView>
 ```
 ### Optional Attributes
 - `app:offlineLayout` Custom layout to show when in OFFLINE state
