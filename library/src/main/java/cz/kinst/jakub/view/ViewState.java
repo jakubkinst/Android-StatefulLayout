@@ -1,4 +1,4 @@
-package com.strv.view;
+package cz.kinst.jakub.view;
 
 
 public enum ViewState

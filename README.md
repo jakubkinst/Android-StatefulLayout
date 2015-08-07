@@ -7,14 +7,14 @@
 
 ### Example
 ```xml
-<com.strv.view.StatefulView
+<cz.kinst.jakub.view.StatefulView
 	android:id="@+id/stateful_view"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent">
 	
 	<!--Your Content Here-->
 		
-</com.strv.view.StatefulView>
+</cz.kinst.jakub.view.StatefulView>
 ```
 ### Optional Attributes
 - `app:offlineLayout` Custom layout to show when in OFFLINE state

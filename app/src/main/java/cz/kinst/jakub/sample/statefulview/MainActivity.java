@@ -1,10 +1,10 @@
-package com.strv.sample.statefulview;
+package cz.kinst.jakub.sample.statefulview;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.strv.view.StatefulView;
+import cz.kinst.jakub.view.StatefulView;
 
 
 public class MainActivity extends AppCompatActivity
