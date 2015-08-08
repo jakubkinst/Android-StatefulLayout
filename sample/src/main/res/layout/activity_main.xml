@@ -52,8 +52,9 @@
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
 		android:layout_weight="1"
-		app:offlineLayout="@layout/custom_placeholder_offline"
-		app:stateTextAppearance="@style/TextAppearance.AppCompat.Body1">
+		app:emptyText="No items here..."
+		app:offlineText="Oops... No Internet connection"
+		app:state="offline">
 
 		<!--Your Content Here-->
 

@@ -1,5 +1,12 @@
 <resources>
+
 	<style name="TextAppearanceStateDefault">
-		<item name="android:textSize">11dp</item>
+		<item name="android:textSize">14dp</item>
+		<item name="android:textColor">?android:attr/textColorSecondary</item>
+	</style>
+
+	<style name="StateImage">
+		<item name="android:layout_marginBottom">@dimen/global_keyline_xs</item>
+		<item name="tint">?android:attr/textColorSecondary</item>
 	</style>
 </resources>

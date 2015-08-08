@@ -1,4 +1,4 @@
 <resources>
-	<string name="default_placeholder_empty">No data</string>
-	<string name="default_placeholder_offline">No network</string>
+	<string name="default_placeholder_empty">No Data</string>
+	<string name="default_placeholder_offline">No Network</string>
 </resources>

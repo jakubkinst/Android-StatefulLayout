@@ -2,6 +2,10 @@ package cz.kinst.jakub.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,99 +16,161 @@ import android.widget.TextView;
 /**
  * Created by jakubkinst on 05/08/15.
  */
-public class StatefulView extends FrameLayout
-{
-	private final int mTextAppearance;
+public class StatefulView extends FrameLayout {
+	private int mTextAppearance;
+	private State mInitialState;
+	private String mCustomEmptyText;
+	private String mCustomOfflineText;
 	private View mOfflineView, mEmptyView, mProgressView;
-	private ViewState mViewState = null;
+	private State mState = null;
 	private View mContent;
 	private FrameLayout mContainerProgress, mContainerOffline, mContainerEmpty;
+	private TextView mDefaultEmptyText, mDefaultOfflineText;
 
 
-	public StatefulView(Context context)
-	{
+	public StatefulView(Context context) {
 		this(context, null);
 	}
 
 
-	public StatefulView(Context context, AttributeSet attrs)
-	{
+	public StatefulView(Context context, AttributeSet attrs) {
 		this(context, attrs, 0);
 	}
 
 
-	public StatefulView(Context context, AttributeSet attrs, int defStyleAttr)
-	{
+	public StatefulView(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
+
 		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.StatefulView);
 		mTextAppearance = a.getResourceId(R.styleable.StatefulView_stateTextAppearance, R.style.TextAppearanceStateDefault);
 		mOfflineView = LayoutInflater.from(context).inflate(a.getResourceId(R.styleable.StatefulView_offlineLayout, R.layout.default_placeholder_offline), null);
 		mEmptyView = LayoutInflater.from(context).inflate(a.getResourceId(R.styleable.StatefulView_emptyLayout, R.layout.default_placeholder_empty), null);
 		mProgressView = LayoutInflater.from(context).inflate(a.getResourceId(R.styleable.StatefulView_progressLayout, R.layout.default_placeholder_progress), null);
 
+		// get custom texts if set
+		if(a.hasValue(R.styleable.StatefulView_emptyText))
+			mCustomEmptyText = a.getString(R.styleable.StatefulView_emptyText);
+		if(a.hasValue(R.styleable.StatefulView_offlineText))
+			mCustomOfflineText = a.getString(R.styleable.StatefulView_offlineText);
+
+		// get initial state if set
+		if(a.hasValue(R.styleable.StatefulView_state)) { //TODO: maybe set initial state to content if not set
+			mInitialState = State.fromId(a.getInt(R.styleable.StatefulView_state, State.CONTENT.id));
+		}
+
+
 	}
 
 
-	public void setEmptyText(CharSequence emptyText)
-	{
-		((TextView) findViewById(R.id.placeholder_empty_text)).setText(emptyText);
+	public void setEmptyText(@StringRes int resourceId) {
+		setEmptyText(getResources().getString(resourceId));
 	}
 
 
-	public void setOfflineText(CharSequence offlineText)
-	{
-		((TextView) findViewById(R.id.placeholder_offline_text)).setText(offlineText);
+	public void setEmptyText(CharSequence emptyText) {
+		if(mDefaultOfflineText != null)
+			mDefaultOfflineText.setText(emptyText);
 	}
 
 
-	public void showContent()
-	{
-		setViewState(ViewState.CONTENT);
+	public void setEmptyImageDrawable(Drawable drawable) {
+		TintableImageView image = ((TintableImageView) mEmptyView.findViewById(R.id.state_image));
+		image.setVisibility(drawable != null ? VISIBLE : GONE);
+		image.setImageDrawable(drawable);
 	}
 
 
-	public void showProgress()
-	{
-		setViewState(ViewState.PROGRESS);
+	public void setEmptyImageResource(@DrawableRes int resourceId) {
+		setEmptyImageDrawable(getResources().getDrawable(resourceId));
 	}
 
 
-	public void showOffline()
-	{
-		setViewState(ViewState.OFFLINE);
+	public void setOfflineText(@StringRes int resourceId) {
+		setOfflineText(getResources().getString(resourceId));
 	}
 
 
-	public void showEmpty()
-	{
-		setViewState(ViewState.EMPTY);
+	public void setOfflineText(CharSequence offlineText) {
+		if(mDefaultOfflineText != null)
+			mDefaultOfflineText.setText(offlineText);
 	}
 
 
-	public ViewState getViewState()
-	{
-		return mViewState;
+	public void setOfflineImageDrawable(Drawable drawable) {
+		TintableImageView image = ((TintableImageView) mOfflineView.findViewById(R.id.state_image));
+		image.setVisibility(drawable != null ? VISIBLE : GONE);
+		image.setImageDrawable(drawable);
 	}
 
 
-	public void setViewState(ViewState viewState)
-	{
-		mViewState = viewState;
+	public void setOfflineImageResource(@DrawableRes int resourceId) {
+		setOfflineImageDrawable(getResources().getDrawable(resourceId));
+	}
+
+
+	public void setTextColor(@ColorInt int color) {
+		((TintableImageView) findViewById(R.id.state_image)).setTintColor(color);
+		((TintableImageView) findViewById(R.id.state_image)).setTintColor(color);
+		((TextView) findViewById(R.id.state_text)).setTextColor(color);
+		((TextView) findViewById(R.id.state_text)).setTextColor(color);
+	}
+
+
+	public void showContent() {
+		setState(State.CONTENT);
+	}
+
+
+	public void showProgress() {
+		setState(State.PROGRESS);
+	}
+
+
+	public void showOffline() {
+		setState(State.OFFLINE);
+	}
+
+
+	public void showEmpty() {
+		setState(State.EMPTY);
+	}
+
+
+	public State getState() {
+		return mState;
+	}
+
+
+	public void setState(State state) {
+		mState = state;
 		if(mContent != null)
-			mContent.setVisibility(viewState == ViewState.CONTENT ? View.VISIBLE : View.GONE);
+			mContent.setVisibility(state == State.CONTENT ? View.VISIBLE : View.GONE);
 		if(mContainerProgress != null)
-			mContainerProgress.setVisibility(viewState == ViewState.PROGRESS ? View.VISIBLE : View.GONE);
+			mContainerProgress.setVisibility(state == State.PROGRESS ? View.VISIBLE : View.GONE);
 		if(mContainerOffline != null)
-			mContainerOffline.setVisibility(viewState == ViewState.OFFLINE ? View.VISIBLE : View.GONE);
+			mContainerOffline.setVisibility(state == State.OFFLINE ? View.VISIBLE : View.GONE);
 		if(mContainerEmpty != null)
-			mContainerEmpty.setVisibility(viewState == ViewState.EMPTY ? View.VISIBLE : View.GONE);
+			mContainerEmpty.setVisibility(state == State.EMPTY ? View.VISIBLE : View.GONE);
 	}
 
 
 	@Override
-	protected void onFinishInflate()
-	{
+	protected void onFinishInflate() {
 		super.onFinishInflate();
+
+		initialize();
+
+
+	}
+
+
+	@Override
+	protected void onAttachedToWindow() {
+		super.onAttachedToWindow();
+	}
+
+
+	private void initialize() {
 		mContent = getChildAt(0);
 		addView(LayoutInflater.from(getContext()).inflate(R.layout.view_stateful, this, false));
 		mContainerProgress = (FrameLayout) findViewById(R.id.container_progress);
@@ -114,21 +180,40 @@ public class StatefulView extends FrameLayout
 		mContainerEmpty = (FrameLayout) findViewById(R.id.container_empty);
 		mContainerEmpty.addView(mEmptyView);
 
-		((TextView) findViewById(R.id.placeholder_empty_text)).setTextAppearance(getContext(), mTextAppearance);
-		((TextView) findViewById(R.id.placeholder_empty_text)).setTextAppearance(getContext(), mTextAppearance);
+		mDefaultEmptyText = ((TextView) mEmptyView.findViewById(R.id.state_text));
+		if(mDefaultEmptyText != null) {
+			mDefaultEmptyText.setTextAppearance(getContext(), mTextAppearance);
+			if(mCustomEmptyText != null)
+				setEmptyText(mCustomEmptyText);
+		}
 
+		mDefaultOfflineText = ((TextView) mOfflineView.findViewById(R.id.state_text));
+		if(mDefaultOfflineText != null) {
+			mDefaultOfflineText.setTextAppearance(getContext(), mTextAppearance);
+			if(mCustomOfflineText != null)
+				setEmptyText(mCustomOfflineText);
+		}
+
+		if(mInitialState != null)
+			setState(mInitialState);
 	}
 
 
-	@Override
-	protected void onAttachedToWindow()
-	{
-		super.onAttachedToWindow();
-		initialize();
-	}
+	public enum State {
+		CONTENT(0), PROGRESS(1), OFFLINE(2), EMPTY(3);
+		int id;
 
 
-	private void initialize()
-	{
+		State(int id) {
+			this.id = id;
+		}
+
+
+		static State fromId(int id) {
+			for(State f : values()) {
+				if(f.id == id) return f;
+			}
+			throw new IllegalArgumentException();
+		}
 	}
 }

@@ -7,43 +7,36 @@ import android.view.View;
 import cz.kinst.jakub.view.StatefulView;
 
 
-public class MainActivity extends AppCompatActivity
-{
+public class MainActivity extends AppCompatActivity {
 
 	StatefulView mStatefulView;
 
 
-	public void showContent(View view)
-	{
+	public void showContent(View view) {
 		mStatefulView.showContent();
 	}
 
 
-	public void showOffline(View view)
-	{
+	public void showOffline(View view) {
 		mStatefulView.showOffline();
 	}
 
 
-	public void showProgress(View view)
-	{
+	public void showProgress(View view) {
 		mStatefulView.showProgress();
 	}
 
 
-	public void showEmpty(View view)
-	{
+	public void showEmpty(View view) {
 		mStatefulView.showEmpty();
 	}
 
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		mStatefulView = (StatefulView) findViewById(R.id.stateful);
-		mStatefulView.showProgress();
 	}
 
 }

@@ -3,6 +3,7 @@
 	<dimen name="activity_horizontal_margin">16dp</dimen>
 	<dimen name="activity_vertical_margin">16dp</dimen>
 
+	<dimen name="global_keyline_xs">8dp</dimen>
 	<dimen name="global_keyline_s">16dp</dimen>
 	<dimen name="global_keyline_m">32dp</dimen>
 	<dimen name="global_keyline_l">72dp</dimen>
