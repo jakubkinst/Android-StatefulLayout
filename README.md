@@ -2,7 +2,7 @@
 
 ## Installation
 ### Gradle/Maven
-[![Release](https://img.shields.io/github/release/jakubkinst/Android-StatefulView.svg?label=JitPack)](https://jitpack.io/#jakubkinst/Android-StatefulView/0.8.1)
+[![Release](https://img.shields.io/github/release/jakubkinst/Android-StatefulView.svg?label=JitPack)](https://jitpack.io/#jakubkinst/Android-StatefulView/0.9)
 ## Usage
 
 ### Example
