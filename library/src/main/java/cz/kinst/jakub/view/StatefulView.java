@@ -68,8 +68,8 @@ public class StatefulView extends FrameLayout {
 
 
 	public void setEmptyText(CharSequence emptyText) {
-		if(mDefaultOfflineText != null)
-			mDefaultOfflineText.setText(emptyText);
+		if(mDefaultEmptyText != null)
+			mDefaultEmptyText.setText(emptyText);
 	}
 
 
