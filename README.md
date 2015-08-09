@@ -2,7 +2,7 @@
 
 ## Installation
 ### Gradle/Maven
-[![Release](https://img.shields.io/github/release/jakubkinst/Android-StatefulView.svg?label=JitPack)](https://jitpack.io/#jakubkinst/Android-StatefulView/0.9.1)
+[![Release](https://img.shields.io/github/release/jakubkinst/Android-StatefulView.svg?label=JitPack)](https://jitpack.io/#jakubkinst/Android-StatefulView/0.9.2)
 ## Usage
 
 ### Example
@@ -19,6 +19,8 @@
 ### Optional Attributes
 - `app:offlineText` Custom text to show when in OFFLINE state
 - `app:emptyText` Custom text to show when in OFFLINE state
+- `app:offlineImageDrawable` Custom image to show above the offline state text (if not using custom layout)
+- `app:emptyImageDrawable` Custom image to show above the empty state text (if not using custom layout)
 - `app:offlineLayout` Custom layout to show when in OFFLINE state
 - `app:emptyLayout` Custom layout to show when in EMPTY state
 - `app:progressLayout` Custom layout to show when in PROGRESS state
