@@ -10,6 +10,8 @@
 		<attr format="reference" name="offlineLayout"/>
 		<attr format="reference" name="emptyLayout"/>
 		<attr format="reference" name="progressLayout"/>
+		<attr format="reference" name="offlineImageDrawable"/>
+		<attr format="reference" name="emptyImageDrawable"/>
 		<attr format="string" name="emptyText"/>
 		<attr format="string" name="offlineText"/>
 	</declare-styleable>

@@ -6,4 +6,6 @@
 
 	<string name="placeholder_empty">No data</string>
 	<string name="placeholder_offline">No network</string>
+	<string name="custom_empty_text">No items here...</string>
+	<string name="custom_offline_text">Oops... No Internet connection</string>
 </resources>

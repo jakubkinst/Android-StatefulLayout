@@ -52,8 +52,8 @@
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
 		android:layout_weight="1"
-		app:emptyText="No items here..."
-		app:offlineText="Oops... No Internet connection"
+		app:emptyText="@string/custom_empty_text"
+		app:offlineText="@string/custom_offline_text"
 		app:state="offline">
 
 		<!--Your Content Here-->

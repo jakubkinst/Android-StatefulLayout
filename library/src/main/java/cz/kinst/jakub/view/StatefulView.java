@@ -17,6 +17,8 @@ import android.widget.TextView;
  * Created by jakubkinst on 05/08/15.
  */
 public class StatefulView extends FrameLayout {
+	private int mCustomEmptyDrawableId = 0;
+	private int mCustomOfflineDrawableId = 0;
 	private int mTextAppearance;
 	private State mInitialState;
 	private String mCustomEmptyText;
@@ -58,6 +60,14 @@ public class StatefulView extends FrameLayout {
 			mInitialState = State.fromId(a.getInt(R.styleable.StatefulView_state, State.CONTENT.id));
 		}
 
+		if(a.hasValue(R.styleable.StatefulView_offlineImageDrawable)) {
+			mCustomOfflineDrawableId = a.getResourceId(R.styleable.StatefulView_offlineImageDrawable, State.CONTENT.id);
+		}
+
+		if(a.hasValue(R.styleable.StatefulView_emptyImageDrawable)) {
+			mCustomEmptyDrawableId = a.getResourceId(R.styleable.StatefulView_emptyImageDrawable, State.CONTENT.id);
+		}
+
 
 	}
 
@@ -75,8 +85,10 @@ public class StatefulView extends FrameLayout {
 
 	public void setEmptyImageDrawable(Drawable drawable) {
 		TintableImageView image = ((TintableImageView) mEmptyView.findViewById(R.id.state_image));
-		image.setVisibility(drawable != null ? VISIBLE : GONE);
-		image.setImageDrawable(drawable);
+		if(image != null) {
+			image.setVisibility(drawable != null ? VISIBLE : GONE);
+			image.setImageDrawable(drawable);
+		}
 	}
 
 
@@ -98,8 +110,10 @@ public class StatefulView extends FrameLayout {
 
 	public void setOfflineImageDrawable(Drawable drawable) {
 		TintableImageView image = ((TintableImageView) mOfflineView.findViewById(R.id.state_image));
-		image.setVisibility(drawable != null ? VISIBLE : GONE);
-		image.setImageDrawable(drawable);
+		if(image != null) {
+			image.setVisibility(drawable != null ? VISIBLE : GONE);
+			image.setImageDrawable(drawable);
+		}
 	}
 
 
@@ -171,6 +185,8 @@ public class StatefulView extends FrameLayout {
 
 
 	private void initialize() {
+
+		// build layout structure
 		mContent = getChildAt(0);
 		addView(LayoutInflater.from(getContext()).inflate(R.layout.view_stateful, this, false));
 		mContainerProgress = (FrameLayout) findViewById(R.id.container_progress);
@@ -180,6 +196,7 @@ public class StatefulView extends FrameLayout {
 		mContainerEmpty = (FrameLayout) findViewById(R.id.container_empty);
 		mContainerEmpty.addView(mEmptyView);
 
+		// set custom empty text
 		mDefaultEmptyText = ((TextView) mEmptyView.findViewById(R.id.state_text));
 		if(mDefaultEmptyText != null) {
 			mDefaultEmptyText.setTextAppearance(getContext(), mTextAppearance);
@@ -187,12 +204,19 @@ public class StatefulView extends FrameLayout {
 				setEmptyText(mCustomEmptyText);
 		}
 
+		// set custom offline text
 		mDefaultOfflineText = ((TextView) mOfflineView.findViewById(R.id.state_text));
 		if(mDefaultOfflineText != null) {
 			mDefaultOfflineText.setTextAppearance(getContext(), mTextAppearance);
 			if(mCustomOfflineText != null)
-				setEmptyText(mCustomOfflineText);
+				setOfflineText(mCustomOfflineText);
 		}
+
+		// set custom drawables
+		if(mCustomOfflineDrawableId != 0)
+			setOfflineImageResource(mCustomOfflineDrawableId);
+		if(mCustomEmptyDrawableId != 0)
+			setEmptyImageResource(mCustomEmptyDrawableId);
 
 		if(mInitialState != null)
 			setState(mInitialState);
