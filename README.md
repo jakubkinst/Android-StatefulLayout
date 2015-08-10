@@ -1,4 +1,5 @@
 # StatefulView
+![alt text](screen.gif)
 
 ## Installation
 ### Gradle/Maven
