@@ -213,8 +213,6 @@ public class StatefulLayout extends FrameLayout {
 		super.onFinishInflate();
 
 		initialize();
-
-
 	}
 
 
