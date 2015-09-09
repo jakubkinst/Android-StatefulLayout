@@ -1,5 +1,5 @@
 <resources>
-	<declare-styleable name="StatefulView">
+	<declare-styleable name="StatefulLayout">
 		<attr format="enum" name="state">
 			<enum name="content" value="0"/>
 			<enum name="progress" value="1"/>

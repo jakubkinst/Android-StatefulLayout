@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-		  package="cz.kinst.jakub.sample.statefulview">
+		  package="cz.kinst.jakub.sample.statefullayout">
 
 	<application
 		android:allowBackup="true"

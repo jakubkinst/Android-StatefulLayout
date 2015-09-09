@@ -47,7 +47,7 @@
 			android:text="EMPTY"/>
 	</LinearLayout>
 
-	<cz.kinst.jakub.view.StatefulView
+	<cz.kinst.jakub.view.StatefulLayout
 		android:id="@+id/stateful"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
@@ -63,5 +63,5 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
 			android:text="Content"/>
-	</cz.kinst.jakub.view.StatefulView>
+	</cz.kinst.jakub.view.StatefulLayout>
 </LinearLayout>

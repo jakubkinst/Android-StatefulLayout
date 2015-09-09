@@ -30,14 +30,6 @@ public class TintableImageView extends ImageView {
 	}
 
 
-	private void init(Context context, AttributeSet attrs, int defStyle) {
-		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TintableImageView, defStyle, 0);
-		int tintColor = a.getColor(R.styleable.TintableImageView_tint, Color.BLACK);
-		a.recycle();
-		setTintColor(tintColor);
-	}
-
-
 	public void setTintColor(@ColorInt int color) {
 		super.setColorFilter(color, PorterDuff.Mode.SRC_IN);
 	}
@@ -45,6 +37,14 @@ public class TintableImageView extends ImageView {
 
 	public void setTintColorResource(@ColorRes int colorResource) {
 		super.setColorFilter(getContext().getResources().getColor(colorResource), PorterDuff.Mode.SRC_IN);
+	}
+
+
+	private void init(Context context, AttributeSet attrs, int defStyle) {
+		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TintableImageView, defStyle, 0);
+		int tintColor = a.getColor(R.styleable.TintableImageView_tint, Color.BLACK);
+		a.recycle();
+		setTintColor(tintColor);
 	}
 
 

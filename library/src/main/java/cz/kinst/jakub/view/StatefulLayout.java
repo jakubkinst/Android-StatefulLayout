@@ -3,6 +3,8 @@ package cz.kinst.jakub.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
@@ -14,9 +16,12 @@ import android.widget.TextView;
 
 
 /**
- * Created by jakubkinst on 05/08/15.
+ * Created by Jakub Kinst (jakub@kinst.cz)
  */
-public class StatefulView extends FrameLayout {
+public class StatefulLayout extends FrameLayout {
+
+	public static final String SAVED_INSTANCE_STATE = "instanceState";
+	private static final String SAVED_STATE = "stateful_layout_state";
 	private int mCustomEmptyDrawableId = 0;
 	private int mCustomOfflineDrawableId = 0;
 	private int mTextAppearance;
@@ -28,47 +33,75 @@ public class StatefulView extends FrameLayout {
 	private View mContent;
 	private FrameLayout mContainerProgress, mContainerOffline, mContainerEmpty;
 	private TextView mDefaultEmptyText, mDefaultOfflineText;
+	private OnStateChangeListener mOnStateChangeListener;
 
 
-	public StatefulView(Context context) {
+	public enum State {
+		CONTENT(0), PROGRESS(1), OFFLINE(2), EMPTY(3);
+		int mValue;
+
+
+		static State fromValue(int value) {
+			State[] values = State.values();
+			return values[value];
+		}
+
+
+		State(int value) {
+			mValue = value;
+		}
+
+
+		public int getValue() {
+			return mValue;
+		}
+	}
+
+
+	public interface OnStateChangeListener {
+		void onStateChange(View v, State state);
+	}
+
+
+	public StatefulLayout(Context context) {
 		this(context, null);
 	}
 
 
-	public StatefulView(Context context, AttributeSet attrs) {
+	public StatefulLayout(Context context, AttributeSet attrs) {
 		this(context, attrs, 0);
 	}
 
 
-	public StatefulView(Context context, AttributeSet attrs, int defStyleAttr) {
+	public StatefulLayout(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 
-		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.StatefulView);
-		mTextAppearance = a.getResourceId(R.styleable.StatefulView_stateTextAppearance, R.style.TextAppearanceStateDefault);
-		mOfflineView = LayoutInflater.from(context).inflate(a.getResourceId(R.styleable.StatefulView_offlineLayout, R.layout.default_placeholder_offline), null);
-		mEmptyView = LayoutInflater.from(context).inflate(a.getResourceId(R.styleable.StatefulView_emptyLayout, R.layout.default_placeholder_empty), null);
-		mProgressView = LayoutInflater.from(context).inflate(a.getResourceId(R.styleable.StatefulView_progressLayout, R.layout.default_placeholder_progress), null);
+		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.StatefulLayout);
+		mTextAppearance = a.getResourceId(R.styleable.StatefulLayout_stateTextAppearance, R.style.TextAppearanceStateDefault);
+		mOfflineView = LayoutInflater.from(context).inflate(a.getResourceId(R.styleable.StatefulLayout_offlineLayout, R.layout.default_placeholder_offline), null);
+		mEmptyView = LayoutInflater.from(context).inflate(a.getResourceId(R.styleable.StatefulLayout_emptyLayout, R.layout.default_placeholder_empty), null);
+		mProgressView = LayoutInflater.from(context).inflate(a.getResourceId(R.styleable.StatefulLayout_progressLayout, R.layout.default_placeholder_progress), null);
 
 		// get custom texts if set
-		if(a.hasValue(R.styleable.StatefulView_emptyText))
-			mCustomEmptyText = a.getString(R.styleable.StatefulView_emptyText);
-		if(a.hasValue(R.styleable.StatefulView_offlineText))
-			mCustomOfflineText = a.getString(R.styleable.StatefulView_offlineText);
+		if(a.hasValue(R.styleable.StatefulLayout_emptyText))
+			mCustomEmptyText = a.getString(R.styleable.StatefulLayout_emptyText);
+		if(a.hasValue(R.styleable.StatefulLayout_offlineText))
+			mCustomOfflineText = a.getString(R.styleable.StatefulLayout_offlineText);
 
 		// get initial state if set
-		if(a.hasValue(R.styleable.StatefulView_state)) { //TODO: maybe set initial state to content if not set
-			mInitialState = State.fromId(a.getInt(R.styleable.StatefulView_state, State.CONTENT.id));
+		if(a.hasValue(R.styleable.StatefulLayout_state)) {
+			mInitialState = State.fromValue(a.getInt(R.styleable.StatefulLayout_state, State.CONTENT.getValue()));
 		}
 
-		if(a.hasValue(R.styleable.StatefulView_offlineImageDrawable)) {
-			mCustomOfflineDrawableId = a.getResourceId(R.styleable.StatefulView_offlineImageDrawable, State.CONTENT.id);
+		if(a.hasValue(R.styleable.StatefulLayout_offlineImageDrawable)) {
+			mCustomOfflineDrawableId = a.getResourceId(R.styleable.StatefulLayout_offlineImageDrawable, 0);
 		}
 
-		if(a.hasValue(R.styleable.StatefulView_emptyImageDrawable)) {
-			mCustomEmptyDrawableId = a.getResourceId(R.styleable.StatefulView_emptyImageDrawable, State.CONTENT.id);
+		if(a.hasValue(R.styleable.StatefulLayout_emptyImageDrawable)) {
+			mCustomEmptyDrawableId = a.getResourceId(R.styleable.StatefulLayout_emptyImageDrawable, 0);
 		}
 
-
+		a.recycle();
 	}
 
 
@@ -165,6 +198,13 @@ public class StatefulView extends FrameLayout {
 			mContainerOffline.setVisibility(state == State.OFFLINE ? View.VISIBLE : View.GONE);
 		if(mContainerEmpty != null)
 			mContainerEmpty.setVisibility(state == State.EMPTY ? View.VISIBLE : View.GONE);
+
+		if(mOnStateChangeListener != null) mOnStateChangeListener.onStateChange(this, state);
+	}
+
+
+	public void setOnStateChangeListener(OnStateChangeListener listener) {
+		mOnStateChangeListener = listener;
 	}
 
 
@@ -175,6 +215,26 @@ public class StatefulView extends FrameLayout {
 		initialize();
 
 
+	}
+
+
+	@Override
+	protected Parcelable onSaveInstanceState() {
+		Bundle bundle = new Bundle();
+		bundle.putParcelable(SAVED_INSTANCE_STATE, super.onSaveInstanceState());
+		bundle.putInt(SAVED_STATE, mState.getValue());
+		return bundle;
+	}
+
+
+	@Override
+	protected void onRestoreInstanceState(Parcelable state) {
+		if(state instanceof Bundle) {
+			Bundle bundle = (Bundle) state;
+			setState(State.fromValue(bundle.getInt(SAVED_STATE)));
+			state = bundle.getParcelable(SAVED_INSTANCE_STATE);
+		}
+		super.onRestoreInstanceState(state);
 	}
 
 
@@ -220,24 +280,5 @@ public class StatefulView extends FrameLayout {
 
 		if(mInitialState != null)
 			setState(mInitialState);
-	}
-
-
-	public enum State {
-		CONTENT(0), PROGRESS(1), OFFLINE(2), EMPTY(3);
-		int id;
-
-
-		State(int id) {
-			this.id = id;
-		}
-
-
-		static State fromId(int id) {
-			for(State f : values()) {
-				if(f.id == id) return f;
-			}
-			throw new IllegalArgumentException();
-		}
 	}
 }

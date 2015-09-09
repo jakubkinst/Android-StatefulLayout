@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 	<declare-styleable name="TintableImageView">
-		<attr name="tint" format="color"/>
+		<attr format="color" name="tint"/>
 	</declare-styleable>
 </resources>

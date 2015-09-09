@@ -1,8 +1,5 @@
 <resources>
-	<string name="app_name">StatefulView Sample</string>
-
-	<string name="hello_world">Hello world!</string>
-	<string name="action_settings">Settings</string>
+	<string name="app_name">StatefulLayout Sample</string>
 
 	<string name="placeholder_empty">No data</string>
 	<string name="placeholder_offline">No network</string>

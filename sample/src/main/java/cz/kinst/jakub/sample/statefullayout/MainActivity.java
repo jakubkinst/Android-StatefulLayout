@@ -1,15 +1,15 @@
-package cz.kinst.jakub.sample.statefulview;
+package cz.kinst.jakub.sample.statefullayout;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import cz.kinst.jakub.view.StatefulView;
+import cz.kinst.jakub.view.StatefulLayout;
 
 
 public class MainActivity extends AppCompatActivity {
 
-	StatefulView mStatefulView;
+	StatefulLayout mStatefulView;
 
 
 	public void showContent(View view) {
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		mStatefulView = (StatefulView) findViewById(R.id.stateful);
+		mStatefulView = (StatefulLayout) findViewById(R.id.stateful);
 	}
 
 }

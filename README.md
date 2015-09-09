@@ -1,4 +1,4 @@
-# StatefulView
+# StatefulLayout
 ![alt text](screen.gif)
 
 ## Installation
@@ -8,14 +8,14 @@
 
 ### Example
 ```xml
-<cz.kinst.jakub.view.StatefulView
+<cz.kinst.jakub.view.StatefulLayout
 	android:id="@+id/stateful_view"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent">
 	
 	<!--Your Content Here-->
 		
-</cz.kinst.jakub.view.StatefulView>
+</cz.kinst.jakub.view.StatefulLayout>
 ```
 ### Optional Attributes
 - `app:offlineText` Custom text to show when in OFFLINE state
@@ -40,3 +40,4 @@
 - `setEmptyImageResource(int resourceId)` Sets custom image shown above empty text when not using custom layout
 - `setOfflineImageDrawable(Drawable drawable)` Sets custom image shown above offline text when not using custom layout
 - `setOfflineImageResource(int resourceId)` Sets custom image shown above offline text when not using custom layout
+- `setOnStateChangeListener(OnStateChangeListener listener)` Sets a listener on state change event
