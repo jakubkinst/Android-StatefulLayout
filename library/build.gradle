@@ -29,5 +29,7 @@ dependencies {
 	compile 'com.android.support:support-annotations:23.0.1'
 }
 
-// aar generate
+// To generate release AAR
 apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
+
+// (https://medium.com/@tigr/how-to-publish-your-android-studio-library-to-jcenter-5384172c4739)
