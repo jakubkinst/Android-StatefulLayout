@@ -33,7 +33,7 @@
 - `showProgress()`
 - `showEmpty()`
 - `showOffline()`
-- `getViewState()` Returns current view state (CONTENT/OFFLINE/EMPTY/PROGRESS)
+- `getState()` Returns current view state (CONTENT/OFFLINE/EMPTY/PROGRESS)
 - `setEmptyText(String text)` If using default layouts, this will set the text displayed in the EMPTY state
 - `setOfflineText(String text)` If using default layouts, this will set the text displayed in the OFFLINE state
 - `setEmptyImageDrawable(Drawable drawable)` Sets custom image shown above empty text when not using custom layout
