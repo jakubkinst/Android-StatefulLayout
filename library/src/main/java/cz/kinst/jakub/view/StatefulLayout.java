@@ -222,7 +222,7 @@ public class StatefulLayout extends FrameLayout {
 	protected Parcelable onSaveInstanceState() {
 		Bundle bundle = new Bundle();
 		bundle.putParcelable(SAVED_INSTANCE_STATE, super.onSaveInstanceState());
-		bundle.putInt(SAVED_STATE, mState.getValue());
+		saveInstanceState(bundle);
 		return bundle;
 	}
 
@@ -231,10 +231,22 @@ public class StatefulLayout extends FrameLayout {
 	protected void onRestoreInstanceState(Parcelable state) {
 		if(state instanceof Bundle) {
 			Bundle bundle = (Bundle) state;
-			setState(State.fromValue(bundle.getInt(SAVED_STATE)));
+			restoreInstanceState(bundle);
 			state = bundle.getParcelable(SAVED_INSTANCE_STATE);
 		}
 		super.onRestoreInstanceState(state);
+	}
+
+
+	public void saveInstanceState(Bundle outState) {
+		outState.putInt(SAVED_STATE, mState.getValue());
+	}
+
+
+	public State restoreInstanceState(Bundle savedInstanceState) {
+		State state = State.fromValue(savedInstanceState.getInt(SAVED_STATE));
+		setState(state);
+		return state;
 	}
 
 

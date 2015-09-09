@@ -2,6 +2,7 @@ package cz.kinst.jakub.sample.statefullayout;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
 import cz.kinst.jakub.view.StatefulLayout;
@@ -9,26 +10,26 @@ import cz.kinst.jakub.view.StatefulLayout;
 
 public class MainActivity extends AppCompatActivity {
 
-	StatefulLayout mStatefulView;
+	StatefulLayout mStatefulLayout;
 
 
 	public void showContent(View view) {
-		mStatefulView.showContent();
+		mStatefulLayout.showContent();
 	}
 
 
 	public void showOffline(View view) {
-		mStatefulView.showOffline();
+		mStatefulLayout.showOffline();
 	}
 
 
 	public void showProgress(View view) {
-		mStatefulView.showProgress();
+		mStatefulLayout.showProgress();
 	}
 
 
 	public void showEmpty(View view) {
-		mStatefulView.showEmpty();
+		mStatefulLayout.showEmpty();
 	}
 
 
@@ -36,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		mStatefulView = (StatefulLayout) findViewById(R.id.stateful);
+		mStatefulLayout = (StatefulLayout) findViewById(R.id.stateful);
+		Log.i("STATE", mStatefulLayout.getState().name());
+
 	}
 
 }
