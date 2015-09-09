@@ -3,7 +3,7 @@
 
 ## Installation
 ### Gradle/Maven
-[![Release](https://img.shields.io/github/release/jakubkinst/Android-StatefulView.svg?label=JitPack)](https://jitpack.io/#jakubkinst/Android-StatefulView/0.9.2)
+    compile 'cz.kinst.jakub:stateful-layout:1.1'
 ## Usage
 
 ### Example
