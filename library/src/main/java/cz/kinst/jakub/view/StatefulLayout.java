@@ -237,7 +237,8 @@ public class StatefulLayout extends FrameLayout {
 
 
 	public void saveInstanceState(Bundle outState) {
-		outState.putInt(SAVED_STATE, mState.getValue());
+		if(mState != null)
+			outState.putInt(SAVED_STATE, mState.getValue());
 	}
 
 
