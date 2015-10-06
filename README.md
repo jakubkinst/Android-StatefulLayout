@@ -3,7 +3,7 @@
 
 ## Installation
 ### Gradle/Maven
-    compile 'cz.kinst.jakub:stateful-layout:1.1'
+    compile 'cz.kinst.jakub:stateful-layout:1.1.1'
 ## Usage
 
 ### Example
