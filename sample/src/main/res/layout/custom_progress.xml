@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 			 android:layout_width="match_parent"
-			 android:layout_height="match_parent">
+			 android:layout_height="match_parent"
+			 android:orientation="vertical">
 
 	<LinearLayout
 		android:layout_width="wrap_content"
@@ -9,28 +10,19 @@
 		android:layout_gravity="center"
 		android:orientation="vertical">
 
-		<Button
+		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
-			android:onClick="showSwitch"
-			android:text="@string/activity_switch"/>
+			android:fontFamily="sans-serif-condensed"
+			android:text="@string/custom_loading"/>
 
-
-		<Button
-			android:layout_width="wrap_content"
+		<ProgressBar
+			android:layout_width="100dp"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
-			android:onClick="showLoading"
-			android:text="@string/activity_loading"/>
-		<Button
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center"
-			android:onClick="showDataBinding"
-			android:text="@string/activity_data_binding"/>
-
-
+			android:layout_margin="@dimen/global_keyline_s"
+			android:indeterminate="true"
+			style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
 	</LinearLayout>
-
 </FrameLayout>

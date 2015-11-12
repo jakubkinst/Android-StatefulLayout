@@ -5,4 +5,8 @@
 	<string name="placeholder_offline">No network</string>
 	<string name="custom_empty_text">No items here...</string>
 	<string name="custom_offline_text">Oops... No Internet connection</string>
+	<string name="activity_switch">Switch States</string>
+	<string name="activity_loading">Loading Content</string>
+	<string name="activity_data_binding">Data Binding</string>
+	<string name="custom_loading">Loading... Be patient...</string>
 </resources>

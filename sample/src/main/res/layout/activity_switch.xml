@@ -1,0 +1,69 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  xmlns:app="http://schemas.android.com/apk/res-auto"
+			  xmlns:tools="http://schemas.android.com/tools"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent"
+			  android:orientation="vertical"
+			  android:padding="@dimen/global_keyline_s"
+			  tools:context=".SwitchActivity">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+
+		<Button
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:onClick="showContent"
+			android:text="CONTENT"/>
+
+		<Button
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:onClick="showOffline"
+			android:text="OFFLINE"/>
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+
+		<Button
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:onClick="showProgress"
+			android:text="PROGRESS"/>
+
+		<Button
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:onClick="showEmpty"
+			android:text="EMPTY"/>
+	</LinearLayout>
+
+	<cz.kinst.jakub.view.StatefulLayout
+		android:id="@+id/stateful"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		app:emptyText="@string/custom_empty_text"
+		app:offlineText="@string/custom_offline_text"
+		app:progressLayout="@layout/custom_progress"
+		app:state="offline"
+		app:stateTextAppearance="@style/TextAppearance.AppCompat.Caption">
+
+		<!--Your Content Here-->
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:text="Content"/>
+	</cz.kinst.jakub.view.StatefulLayout>
+</LinearLayout>
