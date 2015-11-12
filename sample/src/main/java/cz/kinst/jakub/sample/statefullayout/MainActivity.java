@@ -8,7 +8,7 @@ import android.view.View;
 public class MainActivity extends AppCompatActivity {
 
 	public void showSwitch(View view) {
-		startActivity(SwitchActivity.newIntent(this));
+		startActivity(CustomizationsActivity.newIntent(this));
 	}
 
 

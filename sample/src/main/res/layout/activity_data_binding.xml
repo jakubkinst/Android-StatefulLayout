@@ -19,6 +19,7 @@
 	<cz.kinst.jakub.view.StatefulLayout
 		android:id="@+id/stateful"
 		android:layout_width="match_parent"
+		android:animateLayoutChanges="true"
 		android:layout_height="match_parent"
 		android:orientation="vertical"
 		app:state="@{!isOnline ? State.OFFLINE : (content != null ? State.CONTENT : State.PROGRESS)}">

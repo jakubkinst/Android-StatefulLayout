@@ -4,19 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 
 import cz.kinst.jakub.view.StatefulLayout;
 
 
-public class SwitchActivity extends AppCompatActivity {
+public class CustomizationsActivity extends AppCompatActivity {
 
 	StatefulLayout mStatefulLayout;
 
 
 	public static Intent newIntent(Context context) {
-		Intent intent = new Intent(context, SwitchActivity.class);
+		Intent intent = new Intent(context, CustomizationsActivity.class);
 		return intent;
 	}
 
@@ -44,8 +43,7 @@ public class SwitchActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_switch);
+		setContentView(R.layout.activity_customizations);
 		mStatefulLayout = (StatefulLayout) findViewById(R.id.stateful);
-		Log.i("STATE", mStatefulLayout.getState().name());
 	}
 }

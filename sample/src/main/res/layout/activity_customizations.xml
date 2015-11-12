@@ -5,7 +5,7 @@
 			  android:layout_height="match_parent"
 			  android:orientation="vertical"
 			  android:padding="@dimen/global_keyline_s"
-			  tools:context=".SwitchActivity">
+			  tools:context=".CustomizationsActivity">
 
 	<LinearLayout
 		android:layout_width="match_parent"
@@ -53,6 +53,8 @@
 		android:layout_height="0dp"
 		android:layout_weight="1"
 		app:emptyText="@string/custom_empty_text"
+		app:offlineImageDrawable="@drawable/ic_offline_56dp"
+		android:animateLayoutChanges="true"
 		app:offlineText="@string/custom_offline_text"
 		app:progressLayout="@layout/custom_progress"
 		app:state="offline"
@@ -64,6 +66,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
-			android:text="Content"/>
+			android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+			android:text="@string/content_string"/>
 	</cz.kinst.jakub.view.StatefulLayout>
 </LinearLayout>
