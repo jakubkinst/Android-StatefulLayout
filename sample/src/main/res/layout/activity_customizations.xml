@@ -54,7 +54,6 @@
 		android:layout_weight="1"
 		app:emptyText="@string/custom_empty_text"
 		app:offlineImageDrawable="@drawable/ic_offline_56dp"
-		android:animateLayoutChanges="true"
 		app:offlineText="@string/custom_offline_text"
 		app:progressLayout="@layout/custom_progress"
 		app:state="offline"
