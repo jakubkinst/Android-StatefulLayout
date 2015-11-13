@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.android.databinding'
 
 android {
 	compileSdkVersion 23
@@ -17,12 +16,13 @@ android {
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 		}
 	}
+	dataBinding {
+		enabled = true
+	}
 }
 
 dependencies {
 	compile fileTree(dir: 'libs', include: ['*.jar'])
 	compile 'com.android.support:appcompat-v7:23.1.0'
-	compile 'com.squareup.retrofit:retrofit:2.0.0-beta2'
-	compile 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
 	compile project(':library')
 }
