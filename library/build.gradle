@@ -8,13 +8,13 @@ ext {
 
 android {
 	compileSdkVersion 23
-	buildToolsVersion "23.0.1"
+	buildToolsVersion "23.0.2"
 
 	defaultConfig {
 		minSdkVersion 15
 		targetSdkVersion 23
 		versionCode 3
-		versionName "1.1.1"
+		versionName PUBLISH_VERSION
 	}
 	buildTypes {
 		release {
@@ -26,10 +26,9 @@ android {
 
 dependencies {
 	compile fileTree(dir: 'libs', include: ['*.jar'])
-	compile 'com.android.support:support-annotations:23.0.1'
+	compile 'com.android.support:support-annotations:23.1.0'
 }
 
-// To generate release AAR
+// To generate release AAR  - run `./gradlew clean build generateRelease`
+// Based on https://medium.com/@tigr/how-to-publish-your-android-studio-library-to-jcenter-5384172c4739
 apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
-
-// (https://medium.com/@tigr/how-to-publish-your-android-studio-library-to-jcenter-5384172c4739)
