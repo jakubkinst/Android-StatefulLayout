@@ -3,7 +3,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:padding="@dimen/global_keyline_s">
+	android:padding="@dimen/sfl_global_keyline_s">
 
 	<LinearLayout
 		android:layout_width="wrap_content"
@@ -17,15 +17,15 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_horizontal"
 			android:visibility="gone"
-			style="@style/StateImage"/>
+			style="@style/sfl_StateImage"/>
 
 		<TextView
 			android:id="@+id/state_text"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:gravity="center"
-			android:text="@string/default_placeholder_empty"
-			android:textAppearance="@style/TextAppearanceStateDefault"/>
+			android:text="@string/sfl_default_placeholder_empty"
+			android:textAppearance="@style/sfl_TextAppearanceStateDefault"/>
 
 	</LinearLayout>
 </FrameLayout>

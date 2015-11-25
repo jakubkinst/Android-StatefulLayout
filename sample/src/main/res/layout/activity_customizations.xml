@@ -56,7 +56,7 @@
 		app:offlineImageDrawable="@drawable/ic_offline_56dp"
 		app:offlineText="@string/custom_offline_text"
 		app:progressLayout="@layout/custom_progress"
-		app:state="offline"
+		app:state="empty"
 		app:stateTextAppearance="@style/TextAppearance.AppCompat.Caption">
 
 		<!--Your Content Here-->

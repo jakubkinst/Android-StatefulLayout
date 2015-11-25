@@ -1,12 +1,12 @@
 <resources>
 
-	<style name="TextAppearanceStateDefault">
+	<style name="sfl_TextAppearanceStateDefault">
 		<item name="android:textSize">14dp</item>
 		<item name="android:textColor">?android:attr/textColorSecondary</item>
 	</style>
 
-	<style name="StateImage">
-		<item name="android:layout_marginBottom">@dimen/global_keyline_xs</item>
+	<style name="sfl_StateImage">
+		<item name="android:layout_marginBottom">@dimen/sfl_global_keyline_xs</item>
 		<item name="tint">?android:attr/textColorSecondary</item>
 	</style>
 </resources>

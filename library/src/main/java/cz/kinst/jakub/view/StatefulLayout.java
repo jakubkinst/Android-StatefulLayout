@@ -77,7 +77,7 @@ public class StatefulLayout extends FrameLayout {
 		super(context, attrs, defStyleAttr);
 
 		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.StatefulLayout);
-		mTextAppearance = a.getResourceId(R.styleable.StatefulLayout_stateTextAppearance, R.style.TextAppearanceStateDefault);
+		mTextAppearance = a.getResourceId(R.styleable.StatefulLayout_stateTextAppearance, R.style.sfl_TextAppearanceStateDefault);
 		mOfflineView = LayoutInflater.from(context).inflate(a.getResourceId(R.styleable.StatefulLayout_offlineLayout, R.layout.default_placeholder_offline), null);
 		mEmptyView = LayoutInflater.from(context).inflate(a.getResourceId(R.styleable.StatefulLayout_emptyLayout, R.layout.default_placeholder_empty), null);
 		mProgressView = LayoutInflater.from(context).inflate(a.getResourceId(R.styleable.StatefulLayout_progressLayout, R.layout.default_placeholder_progress), null);

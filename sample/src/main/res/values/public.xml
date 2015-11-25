@@ -1,0 +1,4 @@
+<resources>
+	<public name="sfl_default_placeholder_empty" type="string"/>
+	<public name="sfl_default_placeholder_offline" type="string"/>
+</resources>
