@@ -3,7 +3,7 @@ apply plugin: 'com.android.library'
 ext {
 	PUBLISH_GROUP_ID = 'cz.kinst.jakub'
 	PUBLISH_ARTIFACT_ID = 'stateful-layout'
-	PUBLISH_VERSION = '1.1.1'
+	PUBLISH_VERSION = '1.1.2'
 }
 
 android {
@@ -11,7 +11,7 @@ android {
 	buildToolsVersion "23.0.2"
 
 	defaultConfig {
-		minSdkVersion 15
+		minSdkVersion 14
 		targetSdkVersion 23
 		versionCode 3
 		versionName PUBLISH_VERSION
@@ -23,6 +23,9 @@ android {
 		}
 	}
 	resourcePrefix 'sfl_'
+	lintOptions {
+		abortOnError false
+	}
 }
 
 dependencies {
