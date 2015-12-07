@@ -10,4 +10,5 @@
 	<string name="activity_data_binding">Data Binding</string>
 	<string name="custom_loading">Loading... Be patient...</string>
 	<string name="content_string">This is the content</string>
+	<string name="activity_fragment_test">Fragment Test</string>
 </resources>

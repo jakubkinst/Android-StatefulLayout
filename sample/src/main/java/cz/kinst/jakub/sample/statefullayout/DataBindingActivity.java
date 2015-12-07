@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import cz.kinst.jakub.sample.statefullayout.databinding.ActivityDataBindingBinding;
 import cz.kinst.jakub.sample.statefullayout.utility.DummyContentLoader;
 import cz.kinst.jakub.sample.statefullayout.utility.NetworkUtility;
+import cz.kinst.jakub.view.StatefulLayout;
 
 
 public class DataBindingActivity extends AppCompatActivity {
@@ -26,14 +27,18 @@ public class DataBindingActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mBinding = DataBindingUtil.setContentView(this, R.layout.activity_data_binding);
-		mBinding.setIsOnline(NetworkUtility.isOnline(this));
-
-		// load content
-		DummyContentLoader.loadDummyContent(new DummyContentLoader.OnDummyContentLoaded() {
-			@Override
-			public void onDummyContentLoaded(String content) {
-				mBinding.setContent(content);
-			}
-		});
+		if(!NetworkUtility.isOnline(this))
+			mBinding.setState(StatefulLayout.State.OFFLINE);
+		else {
+			// load content
+			mBinding.setState(StatefulLayout.State.PROGRESS);
+			DummyContentLoader.loadDummyContent(new DummyContentLoader.OnDummyContentLoaded() {
+				@Override
+				public void onDummyContentLoaded(String content) {
+					mBinding.setContent(content);
+					mBinding.setState(StatefulLayout.State.CONTENT);
+				}
+			});
+		}
 	}
 }

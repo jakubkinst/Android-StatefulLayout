@@ -22,6 +22,11 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 
+	public void showFragmentTest(View view) {
+		startActivity(TestFragmentActivity.newIntent(this));
+	}
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

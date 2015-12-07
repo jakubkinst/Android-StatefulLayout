@@ -34,6 +34,7 @@ public class StatefulLayout extends FrameLayout {
 	private FrameLayout mContainerProgress, mContainerOffline, mContainerEmpty;
 	private TextView mDefaultEmptyText, mDefaultOfflineText;
 	private OnStateChangeListener mOnStateChangeListener;
+	private boolean mInitialized;
 
 
 	public enum State {
@@ -211,8 +212,8 @@ public class StatefulLayout extends FrameLayout {
 	@Override
 	protected void onFinishInflate() {
 		super.onFinishInflate();
-
-		initialize();
+		if(!mInitialized)
+			initialize();
 	}
 
 
@@ -291,5 +292,6 @@ public class StatefulLayout extends FrameLayout {
 
 		if(mInitialState != null)
 			setState(mInitialState);
+		mInitialized = true;
 	}
 }
