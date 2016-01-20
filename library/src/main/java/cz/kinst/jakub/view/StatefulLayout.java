@@ -296,20 +296,17 @@ public class StatefulLayout extends FrameLayout {
 	}
 
 
-	public FrameLayout getContainerProgress()
-	{
+	public FrameLayout getContainerProgress() {
 		return mContainerProgress;
 	}
 
 
-	public FrameLayout getContainerOffline()
-	{
+	public FrameLayout getContainerOffline() {
 		return mContainerOffline;
 	}
 
 
-	public FrameLayout getContainerEmpty()
-	{
+	public FrameLayout getContainerEmpty() {
 		return mContainerEmpty;
 	}
 }
