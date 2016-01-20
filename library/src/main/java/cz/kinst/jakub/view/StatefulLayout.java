@@ -294,4 +294,22 @@ public class StatefulLayout extends FrameLayout {
 			setState(mInitialState);
 		mInitialized = true;
 	}
+
+
+	public FrameLayout getContainerProgress()
+	{
+		return mContainerProgress;
+	}
+
+
+	public FrameLayout getContainerOffline()
+	{
+		return mContainerOffline;
+	}
+
+
+	public FrameLayout getContainerEmpty()
+	{
+		return mContainerEmpty;
+	}
 }
