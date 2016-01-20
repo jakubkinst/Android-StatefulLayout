@@ -296,32 +296,44 @@ public class StatefulLayout extends FrameLayout {
 	}
 
 
-	public FrameLayout getContainerProgress() {
-		return mContainerProgress;
+	public View getProgressView() {
+		return mProgressView;
 	}
 
 
-	public FrameLayout getContainerOffline() {
-		return mContainerOffline;
+	public View getOfflineView() {
+		return mOfflineView;
 	}
 
 
-	public FrameLayout getContainerEmpty() {
-		return mContainerEmpty;
+	public View getEmptyView() {
+		return mEmptyView;
 	}
 
 
-	public void setContainerProgress(FrameLayout containerProgress) {
-		mContainerProgress = containerProgress;
+	public void setOfflineView(View offlineView) {
+		mOfflineView = offlineView;
+		if (mInitialized) {
+			mContainerOffline.removeAllViews();
+			mContainerOffline.addView(mOfflineView);
+		}
 	}
 
 
-	public void setContainerOffline(FrameLayout containerOffline) {
-		mContainerOffline = containerOffline;
+	public void setEmptyView(View emptyView) {
+		mEmptyView = emptyView;
+		if (mInitialized) {
+			mContainerEmpty.removeAllViews();
+			mContainerEmpty.addView(mEmptyView);
+		}
 	}
 
 
-	public void setContainerEmpty(FrameLayout containerEmpty) {
-		mContainerEmpty = containerEmpty;
+	public void setProgressView(View progressView) {
+		mProgressView = progressView;
+		if (mInitialized) {
+			mContainerProgress.removeAllViews();
+			mContainerProgress.addView(mProgressView);
+		}
 	}
 }
