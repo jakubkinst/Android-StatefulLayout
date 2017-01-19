@@ -31,17 +31,23 @@ public class StatefulLayout extends BaseStatefulLayout {
 
 	public StatefulLayout(Context context) {
 		super(context);
+		init(context, null);
 	}
 
 
 	public StatefulLayout(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		init(context, attrs);
 	}
 
 
 	public StatefulLayout(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
+		init(context, attrs);
+	}
 
+
+	private void init(Context context, AttributeSet attrs) {
 		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SflStatefulLayout);
 		mTextAppearance = a.getResourceId(R.styleable.SflStatefulLayout_stateTextAppearance, R.style.sfl_TextAppearanceStateDefault);
 

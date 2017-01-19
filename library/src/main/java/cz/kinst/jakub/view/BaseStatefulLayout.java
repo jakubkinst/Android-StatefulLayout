@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import java.util.HashMap;
@@ -59,6 +58,7 @@ public abstract class BaseStatefulLayout extends FrameLayout {
 		if(view.getParent() == null) {
 			addView(view);
 		}
+		view.setVisibility(GONE);
 	}
 
 
@@ -138,14 +138,6 @@ public abstract class BaseStatefulLayout extends FrameLayout {
 
 	public View getStateView(String state) {
 		return mStateViews.get(state);
-	}
-
-
-	private FrameLayout createContainer() {
-		FrameLayout container = new FrameLayout(getContext());
-		container.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-		container.setVisibility(GONE);
-		return container;
 	}
 
 }

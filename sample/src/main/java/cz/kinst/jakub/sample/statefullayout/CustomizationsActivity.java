@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import cz.kinst.jakub.view.StatefulLayout;
@@ -11,6 +12,7 @@ import cz.kinst.jakub.view.StatefulLayout;
 
 public class CustomizationsActivity extends AppCompatActivity {
 
+	private static final String STATE_CUSTOM = "custom";
 	StatefulLayout mStatefulLayout;
 
 
@@ -40,10 +42,16 @@ public class CustomizationsActivity extends AppCompatActivity {
 	}
 
 
+	public void showCustom(View view) {
+		mStatefulLayout.setState(STATE_CUSTOM);
+	}
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_customizations);
 		mStatefulLayout = (StatefulLayout) findViewById(R.id.stateful);
+		mStatefulLayout.setStateView(STATE_CUSTOM, LayoutInflater.from(this).inflate(R.layout.custom_state, null));
 	}
 }
