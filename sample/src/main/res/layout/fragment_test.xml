@@ -7,7 +7,7 @@
 
 		<variable
 			name="state"
-			type="cz.kinst.jakub.view.StatefulLayout.State"/>
+			type="String"/>
 
 		<variable
 			name="content"

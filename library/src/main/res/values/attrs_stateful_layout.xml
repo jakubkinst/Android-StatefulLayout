@@ -1,11 +1,6 @@
 <resources>
-	<declare-styleable name="StatefulLayout">
-		<attr format="enum" name="state">
-			<enum name="content" value="0"/>
-			<enum name="progress" value="1"/>
-			<enum name="offline" value="2"/>
-			<enum name="empty" value="3"/>
-		</attr>
+	<declare-styleable name="SflStatefulLayout">
+		<attr format="string" name="state"/>
 		<attr format="reference" name="stateTextAppearance"/>
 		<attr format="reference" name="offlineLayout"/>
 		<attr format="reference" name="emptyLayout"/>

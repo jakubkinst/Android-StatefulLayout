@@ -10,6 +10,7 @@ import cz.kinst.jakub.sample.statefullayout.databinding.ActivityDataBindingBindi
 import cz.kinst.jakub.sample.statefullayout.utility.DummyContentLoader;
 import cz.kinst.jakub.sample.statefullayout.utility.NetworkUtility;
 import cz.kinst.jakub.view.StatefulLayout;
+import cz.kinst.jakub.view.BaseStatefulLayout;
 
 
 public class DataBindingActivity extends AppCompatActivity {
@@ -36,7 +37,7 @@ public class DataBindingActivity extends AppCompatActivity {
 				@Override
 				public void onDummyContentLoaded(String content) {
 					mBinding.setContent(content);
-					mBinding.setState(StatefulLayout.State.CONTENT);
+					mBinding.setState(BaseStatefulLayout.State.CONTENT);
 				}
 			});
 		}
