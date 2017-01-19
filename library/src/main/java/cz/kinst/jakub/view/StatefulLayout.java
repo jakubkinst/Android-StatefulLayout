@@ -14,9 +14,9 @@ import android.widget.TextView;
 
 public class StatefulLayout extends BaseStatefulLayout {
 
-	private String mInitialState;
+	private String mInitialState = State.CONTENT;
 	private int mTextAppearance;
-	private int mOfflineViewResource, mEmptyViewResource, mProgressViewResource;
+	private int mOfflineLayoutResource, mEmptyLayoutResource, mProgressLayoutResource;
 	private int mCustomEmptyDrawableId, mCustomOfflineDrawableId;
 	private String mCustomEmptyText, mCustomOfflineText;
 	private TextView mDefaultEmptyText, mDefaultOfflineText;
@@ -30,23 +30,24 @@ public class StatefulLayout extends BaseStatefulLayout {
 
 
 	public StatefulLayout(Context context) {
-		this(context, null);
+		super(context);
 	}
 
 
 	public StatefulLayout(Context context, AttributeSet attrs) {
-		this(context, attrs, 0);
+		super(context, attrs);
 	}
 
 
 	public StatefulLayout(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
+
 		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SflStatefulLayout);
 		mTextAppearance = a.getResourceId(R.styleable.SflStatefulLayout_stateTextAppearance, R.style.sfl_TextAppearanceStateDefault);
 
-		mOfflineViewResource = a.getResourceId(R.styleable.SflStatefulLayout_offlineLayout, R.layout.default_placeholder_offline);
-		mEmptyViewResource = a.getResourceId(R.styleable.SflStatefulLayout_emptyLayout, R.layout.default_placeholder_empty);
-		mProgressViewResource = a.getResourceId(R.styleable.SflStatefulLayout_progressLayout, R.layout.default_placeholder_progress);
+		mOfflineLayoutResource = a.getResourceId(R.styleable.SflStatefulLayout_offlineLayout, R.layout.default_placeholder_offline);
+		mEmptyLayoutResource = a.getResourceId(R.styleable.SflStatefulLayout_emptyLayout, R.layout.default_placeholder_empty);
+		mProgressLayoutResource = a.getResourceId(R.styleable.SflStatefulLayout_progressLayout, R.layout.default_placeholder_progress);
 
 
 		// get custom texts if set
@@ -59,8 +60,6 @@ public class StatefulLayout extends BaseStatefulLayout {
 		if(a.hasValue(R.styleable.SflStatefulLayout_state)) {
 			mInitialState = a.getString(R.styleable.SflStatefulLayout_state);
 		}
-		if(mInitialState == null)
-			mInitialState = State.CONTENT;
 
 		if(a.hasValue(R.styleable.SflStatefulLayout_offlineImageDrawable)) {
 			mCustomOfflineDrawableId = a.getResourceId(R.styleable.SflStatefulLayout_offlineImageDrawable, 0);
@@ -75,12 +74,12 @@ public class StatefulLayout extends BaseStatefulLayout {
 
 
 	@Override
-	protected void initialize() {
-		super.initialize();
+	protected void initializeContent() {
+		super.initializeContent();
 
-		setStateView(State.OFFLINE, LayoutInflater.from(getContext()).inflate(mOfflineViewResource, null));
-		setStateView(State.EMPTY, LayoutInflater.from(getContext()).inflate(mEmptyViewResource, null));
-		setStateView(State.PROGRESS, LayoutInflater.from(getContext()).inflate(mProgressViewResource, null));
+		setStateView(State.OFFLINE, LayoutInflater.from(getContext()).inflate(mOfflineLayoutResource, null));
+		setStateView(State.EMPTY, LayoutInflater.from(getContext()).inflate(mEmptyLayoutResource, null));
+		setStateView(State.PROGRESS, LayoutInflater.from(getContext()).inflate(mProgressLayoutResource, null));
 
 		// set custom empty text
 		mDefaultEmptyText = ((TextView) getEmptyView().findViewById(R.id.state_text));

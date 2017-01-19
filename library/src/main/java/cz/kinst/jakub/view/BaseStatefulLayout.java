@@ -20,12 +20,8 @@ public abstract class BaseStatefulLayout extends FrameLayout {
 	public static final String SAVED_INSTANCE_STATE = "instanceState";
 	private static final String SAVED_STATE = "stateful_layout_state";
 
-	private Map<String, View> mViews = new HashMap<>();
-
+	private Map<String, View> mStateViews = new HashMap<>();
 	private String mState = null;
-
-	private Map<String, FrameLayout> mContainers = new HashMap<>();
-
 	private OnStateChangeListener mOnStateChangeListener;
 	private boolean mInitialized;
 
@@ -41,12 +37,12 @@ public abstract class BaseStatefulLayout extends FrameLayout {
 
 
 	public BaseStatefulLayout(Context context) {
-		this(context, null);
+		super(context);
 	}
 
 
 	public BaseStatefulLayout(Context context, AttributeSet attrs) {
-		this(context, attrs, 0);
+		super(context, attrs);
 	}
 
 
@@ -56,16 +52,12 @@ public abstract class BaseStatefulLayout extends FrameLayout {
 
 
 	public void setStateView(String state, View view) {
-		mViews.put(state, view);
-		FrameLayout container = mContainers.get(state);
-		if(container == null) {
-			container = createContainer();
-			mContainers.put(state, container);
-			addView(container);
+		if(mStateViews.containsKey(state)) {
+			removeView(mStateViews.get(state));
 		}
+		mStateViews.put(state, view);
 		if(view.getParent() == null) {
-			container.removeAllViews();
-			container.addView(view);
+			addView(view);
 		}
 	}
 
@@ -76,10 +68,12 @@ public abstract class BaseStatefulLayout extends FrameLayout {
 
 
 	public void setState(String state) {
+		if(getStateView(state) == null) {
+			throw new IllegalStateException(String.format("Cannot switch to state \"%s\". This state was not defined or the view for this state is null."));
+		}
 		mState = state;
-		for(String s : mContainers.keySet()) {
-			FrameLayout container = mContainers.get(s);
-			container.setVisibility(s.equals(state) ? View.VISIBLE : View.GONE);
+		for(String s : mStateViews.keySet()) {
+			mStateViews.get(s).setVisibility(s.equals(state) ? View.VISIBLE : View.GONE);
 		}
 		if(mOnStateChangeListener != null) mOnStateChangeListener.onStateChange(this, state);
 	}
@@ -94,7 +88,18 @@ public abstract class BaseStatefulLayout extends FrameLayout {
 	protected void onFinishInflate() {
 		super.onFinishInflate();
 		if(!mInitialized)
-			initialize();
+			initializeContent();
+	}
+
+
+	protected void initializeContent() {
+		if(getChildCount() != 1) {
+			throw new IllegalStateException("Invalid child count. StatefulLayout must have exactly one child.");
+		}
+		View contentView = getChildAt(0);
+		removeAllViews();
+		setStateView(State.CONTENT, contentView);
+		mInitialized = true;
 	}
 
 
@@ -131,22 +136,8 @@ public abstract class BaseStatefulLayout extends FrameLayout {
 	}
 
 
-	@Override
-	protected void onAttachedToWindow() {
-		super.onAttachedToWindow();
-	}
-
-
-	protected void initialize() {
-		View contentView = getChildAt(0);
-		removeAllViews();
-		setStateView(State.CONTENT, contentView);
-		mInitialized = true;
-	}
-
-
 	public View getStateView(String state) {
-		return mViews.get(state);
+		return mStateViews.get(state);
 	}
 
 
