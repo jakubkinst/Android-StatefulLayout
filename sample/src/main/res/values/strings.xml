@@ -11,4 +11,6 @@
 	<string name="custom_loading">Loading... Be patient...</string>
 	<string name="content_string">This is the content</string>
 	<string name="activity_fragment_test">Fragment Test</string>
+	<string name="no_data">Ooops.. No data here.</string>
+	<string name="reload">Reload</string>
 </resources>

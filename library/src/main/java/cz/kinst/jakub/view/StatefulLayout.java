@@ -29,6 +29,16 @@ public class StatefulLayout extends BaseStatefulLayout {
 	}
 
 
+	public StatefulLayout(Context context) {
+		this(context, null);
+	}
+
+
+	public StatefulLayout(Context context, AttributeSet attrs) {
+		this(context, attrs, 0);
+	}
+
+
 	public StatefulLayout(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SflStatefulLayout);
