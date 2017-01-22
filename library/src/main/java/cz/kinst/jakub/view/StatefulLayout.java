@@ -1,25 +1,23 @@
 package cz.kinst.jakub.view;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
 public class StatefulLayout extends BaseStatefulLayout {
 
 	private String mInitialState = State.CONTENT;
-	private int mTextAppearance;
-	private int mOfflineLayoutResource, mEmptyLayoutResource, mProgressLayoutResource;
-	private int mCustomEmptyDrawableId, mCustomOfflineDrawableId;
-	private String mCustomEmptyText, mCustomOfflineText;
-	private TextView mDefaultEmptyText, mDefaultOfflineText;
 
 
 	public class State extends BaseStatefulLayout.State {
@@ -49,18 +47,27 @@ public class StatefulLayout extends BaseStatefulLayout {
 
 	private void init(Context context, AttributeSet attrs) {
 		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SflStatefulLayout);
-		mTextAppearance = a.getResourceId(R.styleable.SflStatefulLayout_stateTextAppearance, R.style.sfl_TextAppearanceStateDefault);
 
-		mOfflineLayoutResource = a.getResourceId(R.styleable.SflStatefulLayout_offlineLayout, R.layout.default_placeholder_offline);
-		mEmptyLayoutResource = a.getResourceId(R.styleable.SflStatefulLayout_emptyLayout, R.layout.default_placeholder_empty);
-		mProgressLayoutResource = a.getResourceId(R.styleable.SflStatefulLayout_progressLayout, R.layout.default_placeholder_progress);
+		int offlineLayoutResource = a.getResourceId(R.styleable.SflStatefulLayout_offlineLayout, R.layout.default_placeholder_offline);
+		int emptyLayoutResource = a.getResourceId(R.styleable.SflStatefulLayout_emptyLayout, R.layout.default_placeholder_empty);
+		int progressLayoutResource = a.getResourceId(R.styleable.SflStatefulLayout_progressLayout, R.layout.default_placeholder_progress);
 
+		setStateView(State.OFFLINE, LayoutInflater.from(getContext()).inflate(offlineLayoutResource, null));
+		setStateView(State.EMPTY, LayoutInflater.from(getContext()).inflate(emptyLayoutResource, null));
+		setStateView(State.PROGRESS, LayoutInflater.from(getContext()).inflate(progressLayoutResource, null));
 
-		// get custom texts if set
-		if(a.hasValue(R.styleable.SflStatefulLayout_emptyText))
-			mCustomEmptyText = a.getString(R.styleable.SflStatefulLayout_emptyText);
-		if(a.hasValue(R.styleable.SflStatefulLayout_offlineText))
-			mCustomOfflineText = a.getString(R.styleable.SflStatefulLayout_offlineText);
+		int textAppearance = a.getResourceId(R.styleable.SflStatefulLayout_stateTextAppearance, R.style.sfl_TextAppearanceStateDefault);
+		setTextAppearance(textAppearance);
+
+		// set custom empty text
+		if(a.hasValue(R.styleable.SflStatefulLayout_emptyText)) {
+			setEmptyText(a.getString(R.styleable.SflStatefulLayout_emptyText));
+		}
+
+		// set custom offline text
+		if(a.hasValue(R.styleable.SflStatefulLayout_offlineText)) {
+			setOfflineText(a.getString(R.styleable.SflStatefulLayout_offlineText));
+		}
 
 		// get initial state if set
 		if(a.hasValue(R.styleable.SflStatefulLayout_state)) {
@@ -68,11 +75,11 @@ public class StatefulLayout extends BaseStatefulLayout {
 		}
 
 		if(a.hasValue(R.styleable.SflStatefulLayout_offlineImageDrawable)) {
-			mCustomOfflineDrawableId = a.getResourceId(R.styleable.SflStatefulLayout_offlineImageDrawable, 0);
+			setOfflineImageResource(a.getResourceId(R.styleable.SflStatefulLayout_offlineImageDrawable, 0));
 		}
 
 		if(a.hasValue(R.styleable.SflStatefulLayout_emptyImageDrawable)) {
-			mCustomEmptyDrawableId = a.getResourceId(R.styleable.SflStatefulLayout_emptyImageDrawable, 0);
+			setEmptyImageResource(a.getResourceId(R.styleable.SflStatefulLayout_emptyImageDrawable, 0));
 		}
 
 		a.recycle();
@@ -80,35 +87,8 @@ public class StatefulLayout extends BaseStatefulLayout {
 
 
 	@Override
-	protected void initializeContent() {
-		super.initializeContent();
-
-		setStateView(State.OFFLINE, LayoutInflater.from(getContext()).inflate(mOfflineLayoutResource, null));
-		setStateView(State.EMPTY, LayoutInflater.from(getContext()).inflate(mEmptyLayoutResource, null));
-		setStateView(State.PROGRESS, LayoutInflater.from(getContext()).inflate(mProgressLayoutResource, null));
-
-		// set custom empty text
-		mDefaultEmptyText = ((TextView) getEmptyView().findViewById(R.id.state_text));
-		if(mDefaultEmptyText != null) {
-			mDefaultEmptyText.setTextAppearance(getContext(), mTextAppearance);
-			if(mCustomEmptyText != null)
-				setEmptyText(mCustomEmptyText);
-		}
-
-		// set custom offline text
-		mDefaultOfflineText = ((TextView) getOfflineView().findViewById(R.id.state_text));
-		if(mDefaultOfflineText != null) {
-			mDefaultOfflineText.setTextAppearance(getContext(), mTextAppearance);
-			if(mCustomOfflineText != null)
-				setOfflineText(mCustomOfflineText);
-		}
-
-		// set custom drawables
-		if(mCustomOfflineDrawableId != 0)
-			setOfflineImageResource(mCustomOfflineDrawableId);
-		if(mCustomEmptyDrawableId != 0)
-			setEmptyImageResource(mCustomEmptyDrawableId);
-
+	protected void onSetupContentState() {
+		super.onSetupContentState();
 		if(mInitialState != null)
 			setState(mInitialState);
 	}
@@ -134,19 +114,28 @@ public class StatefulLayout extends BaseStatefulLayout {
 	}
 
 
+	public void setTextAppearance(int textAppearance) {
+		TextView offlineTextView = ((TextView) getOfflineView().findViewById(R.id.state_text));
+		offlineTextView.setTextAppearance(getContext(), textAppearance);
+		TextView emptyTextView = ((TextView) getEmptyView().findViewById(R.id.state_text));
+		emptyTextView.setTextAppearance(getContext(), textAppearance);
+	}
+
+
 	public void setEmptyText(@StringRes int resourceId) {
 		setEmptyText(getResources().getString(resourceId));
 	}
 
 
 	public void setEmptyText(CharSequence emptyText) {
-		if(mDefaultEmptyText != null)
-			mDefaultEmptyText.setText(emptyText);
+		TextView emptyTextView = ((TextView) getEmptyView().findViewById(R.id.state_text));
+		if(emptyTextView != null)
+			emptyTextView.setText(emptyText);
 	}
 
 
 	public void setEmptyImageDrawable(Drawable drawable) {
-		TintableImageView image = ((TintableImageView) getEmptyView().findViewById(R.id.state_image));
+		ImageView image = ((ImageView) getEmptyView().findViewById(R.id.state_image));
 		if(image != null) {
 			image.setVisibility(drawable != null ? VISIBLE : GONE);
 			image.setImageDrawable(drawable);
@@ -165,13 +154,14 @@ public class StatefulLayout extends BaseStatefulLayout {
 
 
 	public void setOfflineText(CharSequence offlineText) {
-		if(mDefaultOfflineText != null)
-			mDefaultOfflineText.setText(offlineText);
+		TextView offlineTextView = ((TextView) getOfflineView().findViewById(R.id.state_text));
+		if(offlineTextView != null)
+			offlineTextView.setText(offlineText);
 	}
 
 
 	public void setOfflineImageDrawable(Drawable drawable) {
-		TintableImageView image = ((TintableImageView) getOfflineView().findViewById(R.id.state_image));
+		ImageView image = ((ImageView) getOfflineView().findViewById(R.id.state_image));
 		if(image != null) {
 			image.setVisibility(drawable != null ? VISIBLE : GONE);
 			image.setImageDrawable(drawable);
@@ -185,8 +175,8 @@ public class StatefulLayout extends BaseStatefulLayout {
 
 
 	public void setTextColor(@ColorInt int color) {
-		((TintableImageView) findViewById(R.id.state_image)).setTintColor(color);
-		((TintableImageView) findViewById(R.id.state_image)).setTintColor(color);
+		((AppCompatImageView) findViewById(R.id.state_image)).setSupportBackgroundTintList(ColorStateList.valueOf(color));
+		((AppCompatImageView) findViewById(R.id.state_image)).setSupportBackgroundTintList(ColorStateList.valueOf(color));
 		((TextView) findViewById(R.id.state_text)).setTextColor(color);
 		((TextView) findViewById(R.id.state_text)).setTextColor(color);
 	}

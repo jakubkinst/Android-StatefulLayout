@@ -88,16 +88,16 @@ public abstract class BaseStatefulLayout extends FrameLayout {
 	protected void onFinishInflate() {
 		super.onFinishInflate();
 		if(!mInitialized)
-			initializeContent();
+			onSetupContentState();
 	}
 
 
-	protected void initializeContent() {
-		if(getChildCount() != 1) {
+	protected void onSetupContentState() {
+		if(getChildCount() != 1 + mStateViews.size()) {
 			throw new IllegalStateException("Invalid child count. StatefulLayout must have exactly one child.");
 		}
-		View contentView = getChildAt(0);
-		removeAllViews();
+		View contentView = getChildAt(mStateViews.size());
+		removeView(contentView);
 		setStateView(State.CONTENT, contentView);
 		mInitialized = true;
 	}

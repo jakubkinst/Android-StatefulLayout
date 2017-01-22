@@ -11,7 +11,7 @@
 		android:layout_gravity="center"
 		android:orientation="vertical">
 
-		<cz.kinst.jakub.view.TintableImageView
+		<android.support.v7.widget.AppCompatImageView
 			android:id="@+id/state_image"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"

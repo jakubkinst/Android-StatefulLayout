@@ -3,28 +3,4 @@
 			 android:layout_width="match_parent"
 			 android:layout_height="match_parent">
 
-
-	<FrameLayout
-		android:id="@+id/container_progress"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:visibility="gone">
-
-	</FrameLayout>
-
-	<FrameLayout
-		android:id="@+id/container_offline"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:visibility="gone">
-
-	</FrameLayout>
-
-	<FrameLayout
-		android:id="@+id/container_empty"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:visibility="gone">
-
-	</FrameLayout>
 </FrameLayout>
