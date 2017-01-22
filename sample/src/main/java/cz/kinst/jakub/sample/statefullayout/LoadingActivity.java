@@ -8,12 +8,12 @@ import android.widget.TextView;
 
 import cz.kinst.jakub.sample.statefullayout.utility.DummyContentLoader;
 import cz.kinst.jakub.sample.statefullayout.utility.NetworkUtility;
-import cz.kinst.jakub.view.StatefulLayout;
+import cz.kinst.jakub.view.SimpleStatefulLayout;
 
 
 public class LoadingActivity extends AppCompatActivity {
 
-	StatefulLayout mStatefulLayout;
+	SimpleStatefulLayout mStatefulLayout;
 
 
 	public static Intent newIntent(Context context) {
@@ -26,7 +26,7 @@ public class LoadingActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_loading);
-		mStatefulLayout = (StatefulLayout) findViewById(R.id.stateful);
+		mStatefulLayout = (SimpleStatefulLayout) findViewById(R.id.stateful);
 
 		if(NetworkUtility.isOnline(this)) {
 			mStatefulLayout.showProgress();

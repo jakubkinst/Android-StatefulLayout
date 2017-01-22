@@ -8,14 +8,14 @@
 
 ### Example
 ```xml
-<cz.kinst.jakub.view.StatefulLayout
+<cz.kinst.jakub.view.SimpleStatefulLayout
 	android:id="@+id/stateful_view"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent">
 	
 	<!--Your Content Here-->
 		
-</cz.kinst.jakub.view.StatefulLayout>
+</cz.kinst.jakub.view.SimpleStatefulLayout>
 ```
 ### Optional Attributes
 - `app:offlineText` Custom text to show when in OFFLINE state

@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import cz.kinst.jakub.sample.statefullayout.databinding.FragmentTestBinding;
-import cz.kinst.jakub.view.StatefulLayout;
+import cz.kinst.jakub.view.SimpleStatefulLayout;
 
 
 /**
@@ -23,7 +23,7 @@ public class TestFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_test, container, false);
-		mBinding.setState(StatefulLayout.State.OFFLINE);
+		mBinding.setState(SimpleStatefulLayout.State.OFFLINE);
 		return mBinding.getRoot();
 	}
 }

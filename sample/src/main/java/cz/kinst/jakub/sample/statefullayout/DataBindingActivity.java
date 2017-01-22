@@ -12,7 +12,7 @@ import cz.kinst.jakub.sample.statefullayout.databinding.ActivityDataBindingBindi
 import cz.kinst.jakub.sample.statefullayout.databinding.CustomEmptyBinding;
 import cz.kinst.jakub.sample.statefullayout.utility.DummyContentLoader;
 import cz.kinst.jakub.sample.statefullayout.utility.NetworkUtility;
-import cz.kinst.jakub.view.BaseStatefulLayout;
+import cz.kinst.jakub.view.SimpleStatefulLayout;
 import cz.kinst.jakub.view.StatefulLayout;
 
 
@@ -23,6 +23,18 @@ public class DataBindingActivity extends AppCompatActivity {
 
 	public static Intent newIntent(Context context) {
 		return new Intent(context, DataBindingActivity.class);
+	}
+
+
+	public void loadData() {
+		mBinding.setState(SimpleStatefulLayout.State.PROGRESS);
+		DummyContentLoader.loadDummyContent(new DummyContentLoader.OnDummyContentLoaded() {
+			@Override
+			public void onDummyContentLoaded(String content) {
+				mBinding.setContent(content);
+				mBinding.setState(StatefulLayout.State.CONTENT);
+			}
+		});
 	}
 
 
@@ -41,21 +53,9 @@ public class DataBindingActivity extends AppCompatActivity {
 		mBinding.stateful.setEmptyView(emptyView.getRoot());
 
 		if(!NetworkUtility.isOnline(this))
-			mBinding.setState(StatefulLayout.State.OFFLINE);
+			mBinding.setState(SimpleStatefulLayout.State.OFFLINE);
 		else {
-			mBinding.setState(StatefulLayout.State.EMPTY);
+			mBinding.setState(SimpleStatefulLayout.State.EMPTY);
 		}
-	}
-
-
-	public void loadData() {
-		mBinding.setState(StatefulLayout.State.PROGRESS);
-		DummyContentLoader.loadDummyContent(new DummyContentLoader.OnDummyContentLoaded() {
-			@Override
-			public void onDummyContentLoaded(String content) {
-				mBinding.setContent(content);
-				mBinding.setState(BaseStatefulLayout.State.CONTENT);
-			}
-		});
 	}
 }

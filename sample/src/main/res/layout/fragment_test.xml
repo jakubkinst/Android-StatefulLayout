@@ -14,7 +14,7 @@
 			type="String"/>
 	</data>
 
-	<cz.kinst.jakub.view.StatefulLayout
+	<cz.kinst.jakub.view.SimpleStatefulLayout
 		android:id="@+id/stateful"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
@@ -31,6 +31,6 @@
 			android:textColor="@color/primary"
 			android:textStyle="bold"/>
 
-	</cz.kinst.jakub.view.StatefulLayout>
+	</cz.kinst.jakub.view.SimpleStatefulLayout>
 </layout>
 

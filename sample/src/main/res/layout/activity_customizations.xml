@@ -54,7 +54,7 @@
 		android:onClick="showCustom"
 		android:text="CUSTOM"/>
 
-	<cz.kinst.jakub.view.StatefulLayout
+	<cz.kinst.jakub.view.SimpleStatefulLayout
 		android:id="@+id/stateful"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
@@ -74,5 +74,5 @@
 			android:layout_gravity="center"
 			android:text="@string/content_string"
 			android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
-	</cz.kinst.jakub.view.StatefulLayout>
+	</cz.kinst.jakub.view.SimpleStatefulLayout>
 </LinearLayout>
