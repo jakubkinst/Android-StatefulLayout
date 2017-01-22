@@ -1,31 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:padding="@dimen/sfl_global_keyline_s">
 
 	<LinearLayout
-		android:layout_width="wrap_content"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center"
 		android:orientation="vertical">
 
-		<android.support.v7.widget.AppCompatImageView
+		<ImageView
 			android:id="@+id/state_image"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_horizontal"
-			android:visibility="gone"
+			app:srcCompat="@drawable/sfl_ic_offline"
 			style="@style/sfl_StateImage"/>
 
 		<TextView
 			android:id="@+id/state_text"
-			android:layout_width="wrap_content"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:gravity="center"
-			android:text="@string/sfl_default_placeholder_empty"
+			android:text="@string/sfl_default_placeholder_offline"
 			android:textAppearance="@style/sfl_TextAppearanceStateDefault"/>
+
+		<Button
+			android:id="@+id/state_button"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:layout_marginTop="@dimen/sfl_global_keyline_xs"
+			android:clickable="true"
+			android:text="@string/sfl_retry"
+			style="@style/Widget.AppCompat.Button.Borderless.Colored"/>
 
 	</LinearLayout>
 </FrameLayout>

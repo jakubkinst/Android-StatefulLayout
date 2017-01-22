@@ -13,4 +13,5 @@
 	<string name="activity_fragment_test">Fragment Test</string>
 	<string name="no_data">Ooops.. No data here.</string>
 	<string name="reload">Reload</string>
+	<string name="activity_simple">Simple</string>
 </resources>

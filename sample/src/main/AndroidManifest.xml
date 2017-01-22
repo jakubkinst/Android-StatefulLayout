@@ -21,6 +21,9 @@
 			android:name=".CustomizationsActivity"
 			android:label="@string/activity_customizations"/>
 		<activity
+			android:name=".SimpleActivity"
+			android:label="@string/activity_simple"/>
+		<activity
 			android:name=".LoadingActivity"
 			android:label="@string/activity_loading"/>
 		<activity

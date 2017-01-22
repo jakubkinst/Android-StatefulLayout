@@ -9,5 +9,6 @@
 		<attr format="reference" name="emptyImageDrawable"/>
 		<attr format="string" name="emptyText"/>
 		<attr format="string" name="offlineText"/>
+		<attr format="string" name="offlineRetryText"/>
 	</declare-styleable>
 </resources>

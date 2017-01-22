@@ -12,6 +12,11 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 
+	public void showSimple(View view) {
+		startActivity(SimpleActivity.newIntent(this));
+	}
+
+
 	public void showLoading(View view) {
 		startActivity(LoadingActivity.newIntent(this));
 	}

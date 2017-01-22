@@ -9,6 +9,7 @@ android {
 		targetSdkVersion 25
 		versionCode 3
 		versionName "2.0"
+		vectorDrawables.useSupportLibrary = true
 	}
 	buildTypes {
 		release {
@@ -29,4 +30,5 @@ dependencies {
 	compile fileTree(dir: 'libs', include: ['*.jar'])
 	compile project(':library')
 	compile 'com.android.support:appcompat-v7:25.1.0'
+	compile 'com.android.support:transition:25.1.0'
 }

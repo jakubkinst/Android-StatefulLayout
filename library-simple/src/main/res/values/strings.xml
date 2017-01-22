@@ -1,4 +1,5 @@
 <resources>
-	<string name="sfl_default_placeholder_empty">No Data</string>
-	<string name="sfl_default_placeholder_offline">No Network</string>
+	<string name="sfl_default_placeholder_empty">Ooops… No data here.</string>
+	<string name="sfl_default_placeholder_offline">Ooops… You are offline.</string>
+	<string name="sfl_retry">Retry</string>
 </resources>

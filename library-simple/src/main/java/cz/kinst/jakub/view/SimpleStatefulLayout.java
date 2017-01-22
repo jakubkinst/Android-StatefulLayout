@@ -7,10 +7,12 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
+import android.support.transition.TransitionManager;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +22,15 @@ import cz.kinst.jakub.view.simple.R;
 public class SimpleStatefulLayout extends StatefulLayout {
 
 	private String mInitialState = State.CONTENT;
+	private boolean mTransitionEnabled = true;
+
+
+	public class State extends StatefulLayout.State {
+		// Note: CONTENT state is inherited from parent
+		public static final String PROGRESS = "progress";
+		public static final String OFFLINE = "offline";
+		public static final String EMPTY = "empty";
+	}
 
 
 	public SimpleStatefulLayout(Context context) {
@@ -37,6 +48,60 @@ public class SimpleStatefulLayout extends StatefulLayout {
 	public SimpleStatefulLayout(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		init(context, attrs);
+	}
+
+
+	private void init(Context context, AttributeSet attrs) {
+		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SflStatefulLayout);
+
+		int offlineLayoutResource = a.getResourceId(R.styleable.SflStatefulLayout_offlineLayout, R.layout.sfl_default_placeholder_offline);
+		int emptyLayoutResource = a.getResourceId(R.styleable.SflStatefulLayout_emptyLayout, R.layout.sfl_default_placeholder_empty);
+		int progressLayoutResource = a.getResourceId(R.styleable.SflStatefulLayout_progressLayout, R.layout.sfl_default_placeholder_progress);
+
+		setStateView(State.OFFLINE, LayoutInflater.from(getContext()).inflate(offlineLayoutResource, null));
+		setStateView(State.EMPTY, LayoutInflater.from(getContext()).inflate(emptyLayoutResource, null));
+		setStateView(State.PROGRESS, LayoutInflater.from(getContext()).inflate(progressLayoutResource, null));
+
+		int textAppearance = a.getResourceId(R.styleable.SflStatefulLayout_stateTextAppearance, R.style.sfl_TextAppearanceStateDefault);
+		setTextAppearance(textAppearance);
+
+		// set custom empty text
+		if(a.hasValue(R.styleable.SflStatefulLayout_emptyText)) {
+			setEmptyText(a.getString(R.styleable.SflStatefulLayout_emptyText));
+		}
+
+		// set custom offline text
+		if(a.hasValue(R.styleable.SflStatefulLayout_offlineText)) {
+			setOfflineText(a.getString(R.styleable.SflStatefulLayout_offlineText));
+		}
+
+		// set custom offline retry text
+		if(a.hasValue(R.styleable.SflStatefulLayout_offlineRetryText)) {
+			setOfflineText(a.getString(R.styleable.SflStatefulLayout_offlineRetryText));
+		}
+
+		if(a.hasValue(R.styleable.SflStatefulLayout_offlineImageDrawable)) {
+			setOfflineImageResource(a.getResourceId(R.styleable.SflStatefulLayout_offlineImageDrawable, 0));
+		}
+
+		if(a.hasValue(R.styleable.SflStatefulLayout_emptyImageDrawable)) {
+			setEmptyImageResource(a.getResourceId(R.styleable.SflStatefulLayout_emptyImageDrawable, 0));
+		}
+
+		// get initial state if set
+		if(a.hasValue(R.styleable.SflStatefulLayout_state)) {
+			mInitialState = a.getString(R.styleable.SflStatefulLayout_state);
+		}
+
+		a.recycle();
+	}
+
+
+	@Override
+	protected void onSetupContentState() {
+		super.onSetupContentState();
+		if(mInitialState != null)
+			setState(mInitialState);
 	}
 
 
@@ -115,16 +180,24 @@ public class SimpleStatefulLayout extends StatefulLayout {
 	}
 
 
+	@Override
+	public void setState(String state) {
+		if(isTransitionEnabled())
+			TransitionManager.beginDelayedTransition(this);
+		super.setState(state);
+	}
+
+
 	public void setOfflineImageResource(@DrawableRes int resourceId) {
 		setOfflineImageDrawable(getResources().getDrawable(resourceId));
 	}
 
 
 	public void setTextColor(@ColorInt int color) {
-		((AppCompatImageView) findViewById(R.id.state_image)).setSupportBackgroundTintList(ColorStateList.valueOf(color));
-		((AppCompatImageView) findViewById(R.id.state_image)).setSupportBackgroundTintList(ColorStateList.valueOf(color));
-		((TextView) findViewById(R.id.state_text)).setTextColor(color);
-		((TextView) findViewById(R.id.state_text)).setTextColor(color);
+		((AppCompatImageView) getEmptyView().findViewById(R.id.state_image)).setSupportBackgroundTintList(ColorStateList.valueOf(color));
+		((AppCompatImageView) getOfflineView().findViewById(R.id.state_image)).setSupportBackgroundTintList(ColorStateList.valueOf(color));
+		((TextView) getEmptyView().findViewById(R.id.state_text)).setTextColor(color);
+		((TextView) getOfflineView().findViewById(R.id.state_text)).setTextColor(color);
 	}
 
 
@@ -158,62 +231,30 @@ public class SimpleStatefulLayout extends StatefulLayout {
 	}
 
 
-	@Override
-	protected void onSetupContentState() {
-		super.onSetupContentState();
-		if(mInitialState != null)
-			setState(mInitialState);
+	public boolean isTransitionEnabled() {
+		return mTransitionEnabled;
 	}
 
 
-	private void init(Context context, AttributeSet attrs) {
-		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SflStatefulLayout);
-
-		int offlineLayoutResource = a.getResourceId(R.styleable.SflStatefulLayout_offlineLayout, R.layout.default_placeholder_offline);
-		int emptyLayoutResource = a.getResourceId(R.styleable.SflStatefulLayout_emptyLayout, R.layout.default_placeholder_empty);
-		int progressLayoutResource = a.getResourceId(R.styleable.SflStatefulLayout_progressLayout, R.layout.default_placeholder_progress);
-
-		setStateView(State.OFFLINE, LayoutInflater.from(getContext()).inflate(offlineLayoutResource, null));
-		setStateView(State.EMPTY, LayoutInflater.from(getContext()).inflate(emptyLayoutResource, null));
-		setStateView(State.PROGRESS, LayoutInflater.from(getContext()).inflate(progressLayoutResource, null));
-
-		int textAppearance = a.getResourceId(R.styleable.SflStatefulLayout_stateTextAppearance, R.style.sfl_TextAppearanceStateDefault);
-		setTextAppearance(textAppearance);
-
-		// set custom empty text
-		if(a.hasValue(R.styleable.SflStatefulLayout_emptyText)) {
-			setEmptyText(a.getString(R.styleable.SflStatefulLayout_emptyText));
-		}
-
-		// set custom offline text
-		if(a.hasValue(R.styleable.SflStatefulLayout_offlineText)) {
-			setOfflineText(a.getString(R.styleable.SflStatefulLayout_offlineText));
-		}
-
-		if(a.hasValue(R.styleable.SflStatefulLayout_offlineImageDrawable)) {
-			setOfflineImageResource(a.getResourceId(R.styleable.SflStatefulLayout_offlineImageDrawable, 0));
-		}
-
-		if(a.hasValue(R.styleable.SflStatefulLayout_emptyImageDrawable)) {
-			setEmptyImageResource(a.getResourceId(R.styleable.SflStatefulLayout_emptyImageDrawable, 0));
-		}
-
-
-		// get initial state if set
-		if(a.hasValue(R.styleable.SflStatefulLayout_state)) {
-			mInitialState = a.getString(R.styleable.SflStatefulLayout_state);
-		}
-
-		a.recycle();
+	public void setTransitionEnabled(boolean transitionEnabled) {
+		mTransitionEnabled = transitionEnabled;
 	}
 
 
-	public class State extends StatefulLayout.State {
-		// Note: CONTENT state is inherited from parent
-		public static final String PROGRESS = "progress";
-		public static final String OFFLINE = "offline";
-		public static final String EMPTY = "empty";
+	public void setOfflineRetryOnClickListener(OnClickListener listener) {
+		getOfflineView().findViewById(R.id.state_button).setOnClickListener(listener);
 	}
 
+
+	public void setOfflineRetryText(@StringRes int textResourceId) {
+		setOfflineText(getResources().getString(textResourceId));
+	}
+
+
+	public void setOfflineRetryText(CharSequence text) {
+		Button button = ((Button) getOfflineView().findViewById(R.id.state_button));
+		if(button != null)
+			button.setText(text);
+	}
 
 }

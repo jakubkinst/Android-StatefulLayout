@@ -7,7 +7,7 @@
 	android:padding="@dimen/sfl_global_keyline_s">
 
 	<LinearLayout
-		android:layout_width="wrap_content"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center"
 		android:orientation="vertical">
@@ -17,15 +17,15 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_horizontal"
-			app:srcCompat="@drawable/sfl_ic_offline"
+			app:srcCompat="@drawable/sfl_ic_empty"
 			style="@style/sfl_StateImage"/>
 
 		<TextView
 			android:id="@+id/state_text"
-			android:layout_width="wrap_content"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:gravity="center"
-			android:text="@string/sfl_default_placeholder_offline"
+			android:text="@string/sfl_default_placeholder_empty"
 			android:textAppearance="@style/sfl_TextAppearanceStateDefault"/>
 
 	</LinearLayout>
