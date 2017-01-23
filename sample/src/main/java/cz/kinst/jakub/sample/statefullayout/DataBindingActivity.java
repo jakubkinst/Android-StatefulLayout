@@ -26,18 +26,6 @@ public class DataBindingActivity extends AppCompatActivity {
 	}
 
 
-	public void loadData() {
-		mBinding.setState(SimpleStatefulLayout.State.PROGRESS);
-		DummyContentLoader.loadDummyContent(new DummyContentLoader.OnDummyContentLoaded() {
-			@Override
-			public void onDummyContentLoaded(String content) {
-				mBinding.setContent(content);
-				mBinding.setState(StatefulLayout.State.CONTENT);
-			}
-		});
-	}
-
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -57,5 +45,17 @@ public class DataBindingActivity extends AppCompatActivity {
 		else {
 			mBinding.setState(SimpleStatefulLayout.State.EMPTY);
 		}
+	}
+
+
+	public void loadData() {
+		mBinding.setState(SimpleStatefulLayout.State.PROGRESS);
+		DummyContentLoader.loadDummyContent(new DummyContentLoader.OnDummyContentLoaded() {
+			@Override
+			public void onDummyContentLoaded(String content) {
+				mBinding.setContent(content);
+				mBinding.setState(StatefulLayout.State.CONTENT);
+			}
+		});
 	}
 }

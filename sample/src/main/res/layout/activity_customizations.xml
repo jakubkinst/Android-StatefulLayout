@@ -1,11 +1,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			  xmlns:app="http://schemas.android.com/apk/res-auto"
-			  xmlns:tools="http://schemas.android.com/tools"
-			  android:layout_width="match_parent"
-			  android:layout_height="match_parent"
-			  android:orientation="vertical"
-			  android:padding="@dimen/global_keyline_s"
-			  tools:context=".CustomizationsActivity">
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:padding="@dimen/global_keyline_s"
+	tools:context=".CustomizationsActivity">
 
 	<LinearLayout
 		android:layout_width="match_parent"
@@ -17,42 +17,42 @@
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
 			android:onClick="showContent"
-			android:text="CONTENT"/>
+			android:text="@string/content" />
 
 		<Button
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
 			android:onClick="showOffline"
-			android:text="OFFLINE"/>
-	</LinearLayout>
-
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal">
+			android:text="@string/offline" />
 
 		<Button
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
 			android:onClick="showProgress"
-			android:text="PROGRESS"/>
+			android:text="@string/progress" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
 
 		<Button
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
 			android:onClick="showEmpty"
-			android:text="EMPTY"/>
-	</LinearLayout>
+			android:text="@string/empty" />
 
-	<Button
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center"
-		android:onClick="showCustom"
-		android:text="CUSTOM"/>
+		<Button
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:layout_gravity="center"
+			android:onClick="showCustom"
+			android:text="@string/custom" />
+	</LinearLayout>
 
 	<cz.kinst.jakub.view.SimpleStatefulLayout
 		android:id="@+id/stateful"
@@ -60,19 +60,17 @@
 		android:layout_height="0dp"
 		android:layout_weight="1"
 		app:emptyText="@string/custom_empty_text"
-		app:offlineImageDrawable="@drawable/ic_offline_56dp"
+		app:offlineImageDrawable="@drawable/ic_offline"
 		app:offlineText="@string/custom_offline_text"
 		app:progressLayout="@layout/custom_progress"
 		app:state="empty"
 		app:stateTextAppearance="@style/TextAppearance.AppCompat.Caption">
-
-		<!--Your Content Here-->
 
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
 			android:text="@string/content_string"
-			android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+			android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 	</cz.kinst.jakub.view.SimpleStatefulLayout>
 </LinearLayout>

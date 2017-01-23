@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
 
 import cz.kinst.jakub.sample.statefullayout.utility.DummyContentLoader;
@@ -27,7 +28,18 @@ public class LoadingActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_loading);
 		mStatefulLayout = (SimpleStatefulLayout) findViewById(R.id.stateful);
+		mStatefulLayout.setOfflineRetryOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				reload();
+			}
+		});
 
+		reload();
+	}
+
+
+	private void reload() {
 		if(NetworkUtility.isOnline(this)) {
 			mStatefulLayout.showProgress();
 			DummyContentLoader.loadDummyContent(new DummyContentLoader.OnDummyContentLoaded() {
@@ -41,8 +53,9 @@ public class LoadingActivity extends AppCompatActivity {
 					});
 				}
 			});
-		} else
+		} else {
 			mStatefulLayout.showOffline();
+		}
 	}
 
 

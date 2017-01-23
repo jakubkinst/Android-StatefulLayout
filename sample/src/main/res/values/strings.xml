@@ -3,15 +3,20 @@
 
 	<string name="placeholder_empty">No data</string>
 	<string name="placeholder_offline">No network</string>
-	<string name="custom_empty_text">Nothing here...</string>
-	<string name="custom_offline_text">Oops... No Internet connection</string>
-	<string name="activity_customizations">Customizations</string>
+	<string name="custom_empty_text">Nothing here…</string>
+	<string name="custom_offline_text">Oops… No Internet connection</string>
 	<string name="activity_loading">Loading Content</string>
-	<string name="activity_data_binding">Data Binding</string>
-	<string name="custom_loading">Loading... Be patient...</string>
+	<string name="activity_data_binding">Loading Content (Data Binding)</string>
+	<string name="custom_loading">Loading… Be patient…</string>
 	<string name="content_string">This is the content</string>
 	<string name="activity_fragment_test">Fragment Test</string>
 	<string name="no_data">Ooops.. No data here.</string>
 	<string name="reload">Reload</string>
-	<string name="activity_simple">Simple</string>
+	<string name="activity_simple">SimpleStatefulLayout</string>
+	<string name="activity_customizations">Customized SimpleStatefulLayout</string>
+	<string name="content">Content</string>
+	<string name="offline">Offline</string>
+	<string name="progress">Progress</string>
+	<string name="empty">Empty</string>
+	<string name="custom">Custom</string>
 </resources>

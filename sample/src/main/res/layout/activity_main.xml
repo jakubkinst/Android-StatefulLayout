@@ -13,6 +13,20 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
+			android:onClick="showSimple"
+			android:text="@string/activity_simple"/>
+
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:onClick="showSwitch"
+			android:text="@string/activity_customizations"/>
+
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
 			android:onClick="showLoading"
 			android:text="@string/activity_loading"/>
 
@@ -23,19 +37,6 @@
 			android:onClick="showDataBinding"
 			android:text="@string/activity_data_binding"/>
 
-		<Button
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center"
-			android:onClick="showSimple"
-			android:text="@string/activity_simple"/>
-
-		<Button
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center"
-			android:onClick="showSwitch"
-			android:text="@string/activity_customizations"/>
 
 		<Button
 			android:layout_width="wrap_content"
