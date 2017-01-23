@@ -19,4 +19,5 @@
 	<string name="progress">Progress</string>
 	<string name="empty">Empty</string>
 	<string name="custom">Custom</string>
+	<string name="activity_data_binding_controller">Data Binding Controller</string>
 </resources>

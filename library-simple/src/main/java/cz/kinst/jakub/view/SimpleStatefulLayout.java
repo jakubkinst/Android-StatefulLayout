@@ -65,17 +65,17 @@ public class SimpleStatefulLayout extends StatefulLayout {
 		int textAppearance = a.getResourceId(R.styleable.SflStatefulLayout_stateTextAppearance, R.style.sfl_TextAppearanceStateDefault);
 		setTextAppearance(textAppearance);
 
-		// set custom empty text
+		// setState custom empty text
 		if(a.hasValue(R.styleable.SflStatefulLayout_emptyText)) {
 			setEmptyText(a.getString(R.styleable.SflStatefulLayout_emptyText));
 		}
 
-		// set custom offline text
+		// setState custom offline text
 		if(a.hasValue(R.styleable.SflStatefulLayout_offlineText)) {
 			setOfflineText(a.getString(R.styleable.SflStatefulLayout_offlineText));
 		}
 
-		// set custom offline retry text
+		// setState custom offline retry text
 		if(a.hasValue(R.styleable.SflStatefulLayout_offlineRetryText)) {
 			setOfflineText(a.getString(R.styleable.SflStatefulLayout_offlineRetryText));
 		}
@@ -88,7 +88,7 @@ public class SimpleStatefulLayout extends StatefulLayout {
 			setEmptyImageResource(a.getResourceId(R.styleable.SflStatefulLayout_emptyImageDrawable, 0));
 		}
 
-		// get initial state if set
+		// getState initial state if setState
 		if(a.hasValue(R.styleable.SflStatefulLayout_state)) {
 			mInitialState = a.getString(R.styleable.SflStatefulLayout_state);
 		}

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-		  package="cz.kinst.jakub.sample.statefullayout">
+	package="cz.kinst.jakub.sample.statefullayout">
 
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<application
 		android:allowBackup="true"
 		android:icon="@mipmap/ic_launcher"
@@ -12,26 +12,29 @@
 			android:name=".MainActivity"
 			android:label="@string/app_name">
 			<intent-filter>
-				<action android:name="android.intent.action.MAIN"/>
+				<action android:name="android.intent.action.MAIN" />
 
-				<category android:name="android.intent.category.LAUNCHER"/>
+				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
 		<activity
 			android:name=".CustomizationsActivity"
-			android:label="@string/activity_customizations"/>
+			android:label="@string/activity_customizations" />
 		<activity
 			android:name=".SimpleActivity"
-			android:label="@string/activity_simple"/>
+			android:label="@string/activity_simple" />
 		<activity
 			android:name=".LoadingActivity"
-			android:label="@string/activity_loading"/>
+			android:label="@string/activity_loading" />
 		<activity
 			android:name=".DataBindingActivity"
-			android:label="@string/activity_data_binding"/>
+			android:label="@string/activity_data_binding" />
+		<activity
+			android:name=".DataBindingControllerActivity"
+			android:label="@string/activity_data_binding_controller" />
 		<activity
 			android:name=".TestFragmentActivity"
-			android:label="@string/activity_fragment_test"/>
+			android:label="@string/activity_fragment_test" />
 	</application>
 
 </manifest>

@@ -8,13 +8,14 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 
 /**
  * Created by Jakub Kinst (jakub@kinst.cz)
  */
-public abstract class StatefulLayout extends FrameLayout {
+public class StatefulLayout extends FrameLayout {
 
 	public static final String SAVED_INSTANCE_STATE = "instanceState";
 	private static final String SAVED_STATE = "stateful_layout_state";
@@ -26,7 +27,7 @@ public abstract class StatefulLayout extends FrameLayout {
 
 
 	public interface OnStateChangeListener {
-		void onStateChange(View v, String state);
+		void onStateChange(String state);
 	}
 
 
@@ -42,6 +43,34 @@ public abstract class StatefulLayout extends FrameLayout {
 
 	public StatefulLayout(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
+	}
+
+
+	@Override
+	protected void onFinishInflate() {
+		super.onFinishInflate();
+		if(!mInitialized)
+			onSetupContentState();
+	}
+
+
+	@Override
+	protected Parcelable onSaveInstanceState() {
+		Bundle bundle = new Bundle();
+		bundle.putParcelable(SAVED_INSTANCE_STATE, super.onSaveInstanceState());
+		saveInstanceState(bundle);
+		return bundle;
+	}
+
+
+	@Override
+	protected void onRestoreInstanceState(Parcelable state) {
+		if(state instanceof Bundle) {
+			Bundle bundle = (Bundle) state;
+			restoreInstanceState(bundle);
+			state = bundle.getParcelable(SAVED_INSTANCE_STATE);
+		}
+		super.onRestoreInstanceState(state);
 	}
 
 
@@ -70,7 +99,7 @@ public abstract class StatefulLayout extends FrameLayout {
 		for(String s : mStateViews.keySet()) {
 			mStateViews.get(s).setVisibility(s.equals(state) ? View.VISIBLE : View.GONE);
 		}
-		if(mOnStateChangeListener != null) mOnStateChangeListener.onStateChange(this, state);
+		if(mOnStateChangeListener != null) mOnStateChangeListener.onStateChange(state);
 	}
 
 
@@ -97,11 +126,15 @@ public abstract class StatefulLayout extends FrameLayout {
 	}
 
 
-	@Override
-	protected void onFinishInflate() {
-		super.onFinishInflate();
-		if(!mInitialized)
-			onSetupContentState();
+	public void clearStates() {
+		for(String state : new HashSet<>(mStateViews.keySet())) {
+			View view = mStateViews.get(state);
+			if(!state.equals(State.CONTENT)) {
+				removeView(view);
+				mStateViews.remove(state);
+			}
+		}
+
 	}
 
 
@@ -113,26 +146,6 @@ public abstract class StatefulLayout extends FrameLayout {
 		removeView(contentView);
 		setStateView(State.CONTENT, contentView);
 		mInitialized = true;
-	}
-
-
-	@Override
-	protected Parcelable onSaveInstanceState() {
-		Bundle bundle = new Bundle();
-		bundle.putParcelable(SAVED_INSTANCE_STATE, super.onSaveInstanceState());
-		saveInstanceState(bundle);
-		return bundle;
-	}
-
-
-	@Override
-	protected void onRestoreInstanceState(Parcelable state) {
-		if(state instanceof Bundle) {
-			Bundle bundle = (Bundle) state;
-			restoreInstanceState(bundle);
-			state = bundle.getParcelable(SAVED_INSTANCE_STATE);
-		}
-		super.onRestoreInstanceState(state);
 	}
 
 
