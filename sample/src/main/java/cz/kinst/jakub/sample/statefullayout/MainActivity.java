@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 
-	public void showSwitch(View view) {
+	public void showCustomizedSimple(View view) {
 		startActivity(CustomizationsActivity.newIntent(this));
 	}
 
@@ -37,10 +37,4 @@ public class MainActivity extends AppCompatActivity {
 	public void showDataBindingController(View view) {
 		startActivity(DataBindingControllerActivity.newIntent(this));
 	}
-
-
-	public void showFragmentTest(View view) {
-		startActivity(TestFragmentActivity.newIntent(this));
-	}
-
 }

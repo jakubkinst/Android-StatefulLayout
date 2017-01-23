@@ -10,21 +10,56 @@
 			type="cz.kinst.jakub.view.StateController" />
 	</data>
 
-	<cz.kinst.jakub.view.SimpleStatefulLayout
-		android:id="@+id/stateful"
+	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		app:stateController="@{stateController}">
-
-		<TextView
-			android:layout_width="wrap_content"
+		android:orientation="vertical">
+		<LinearLayout
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_gravity="center"
-			android:text="🤡"
-			android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-			android:textColor="@color/primary"
-			android:textStyle="bold" />
+			android:orientation="horizontal">
+			<Button
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:onClick="showContent"
+				android:text="Content" />
+			<Button
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:onClick="show1"
+				android:text="1" />
+			<Button
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:onClick="show2"
+				android:text="2" />
+			<Button
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:onClick="show3"
+				android:text="3" />
+		</LinearLayout>
+		<cz.kinst.jakub.view.StatefulLayout
+			android:id="@+id/stateful"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			app:stateController="@{stateController}">
 
-	</cz.kinst.jakub.view.SimpleStatefulLayout>
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:text="🤡"
+				android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+				android:textColor="@color/primary"
+				android:textStyle="bold" />
+
+		</cz.kinst.jakub.view.StatefulLayout>
+	</LinearLayout>
+
 </layout>
 

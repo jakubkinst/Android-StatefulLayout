@@ -3,6 +3,9 @@ package cz.kinst.jakub.view;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.CallSuper;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -21,7 +24,7 @@ public class StatefulLayout extends FrameLayout {
 	private static final String SAVED_STATE = "stateful_layout_state";
 
 	private Map<String, View> mStateViews = new HashMap<>();
-	private String mState = null;
+	private String mState = State.CONTENT;
 	private OnStateChangeListener mOnStateChangeListener;
 	private boolean mInitialized;
 
@@ -86,6 +89,7 @@ public class StatefulLayout extends FrameLayout {
 	}
 
 
+	@NonNull
 	public String getState() {
 		return mState;
 	}
@@ -95,11 +99,17 @@ public class StatefulLayout extends FrameLayout {
 		if(getStateView(state) == null) {
 			throw new IllegalStateException(String.format("Cannot switch to state \"%s\". This state was not defined or the view for this state is null."));
 		}
+
+		if(mState != null && mState.equals(state))
+			return;
+
 		mState = state;
 		for(String s : mStateViews.keySet()) {
 			mStateViews.get(s).setVisibility(s.equals(state) ? View.VISIBLE : View.GONE);
 		}
-		if(mOnStateChangeListener != null) mOnStateChangeListener.onStateChange(state);
+
+		if(mOnStateChangeListener != null)
+			mOnStateChangeListener.onStateChange(state);
 	}
 
 
@@ -121,6 +131,7 @@ public class StatefulLayout extends FrameLayout {
 	}
 
 
+	@Nullable
 	public View getStateView(String state) {
 		return mStateViews.get(state);
 	}
@@ -134,10 +145,25 @@ public class StatefulLayout extends FrameLayout {
 				mStateViews.remove(state);
 			}
 		}
-
 	}
 
 
+	public void setStateController(StateController stateController) {
+		clearStates();
+		for(String state : stateController.getStates().keySet()) {
+			setStateView(state, stateController.getStates().get(state));
+		}
+		stateController.setOnStateChangeListener(new StatefulLayout.OnStateChangeListener() {
+			@Override
+			public void onStateChange(String state) {
+				setState(state);
+			}
+		});
+		setState(stateController.getState());
+	}
+
+
+	@CallSuper
 	protected void onSetupContentState() {
 		if(getChildCount() != 1 + mStateViews.size()) {
 			throw new IllegalStateException("Invalid child count. StatefulLayout must have exactly one child.");
@@ -149,7 +175,7 @@ public class StatefulLayout extends FrameLayout {
 	}
 
 
-	public class State {
+	public static class State {
 		public static final String CONTENT = "content";
 	}
 

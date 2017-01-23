@@ -32,9 +32,6 @@
 		<activity
 			android:name=".DataBindingControllerActivity"
 			android:label="@string/activity_data_binding_controller" />
-		<activity
-			android:name=".TestFragmentActivity"
-			android:label="@string/activity_fragment_test" />
 	</application>
 
 </manifest>

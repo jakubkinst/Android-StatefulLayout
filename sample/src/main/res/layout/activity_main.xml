@@ -1,55 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			 android:layout_width="match_parent"
-			 android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:clipToPadding="false"
+	android:clipChildren="false"
+	android:padding="@dimen/global_keyline_s">
 
 	<LinearLayout
-		android:layout_width="wrap_content"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center"
+		android:clipChildren="false"
 		android:orientation="vertical">
 
 		<Button
-			android:layout_width="wrap_content"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
 			android:onClick="showSimple"
-			android:text="@string/activity_simple"/>
+			android:text="@string/activity_simple" />
 
 		<Button
-			android:layout_width="wrap_content"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
-			android:onClick="showSwitch"
-			android:text="@string/activity_customizations"/>
+			android:onClick="showCustomizedSimple"
+			android:text="@string/activity_customizations" />
 
 		<Button
-			android:layout_width="wrap_content"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
 			android:onClick="showLoading"
-			android:text="@string/activity_loading"/>
+			android:text="@string/activity_loading" />
 
 		<Button
-			android:layout_width="wrap_content"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
 			android:onClick="showDataBinding"
-			android:text="@string/activity_data_binding"/>
+			android:text="@string/activity_data_binding" />
 
 		<Button
-			android:layout_width="wrap_content"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
 			android:onClick="showDataBindingController"
-			android:text="@string/activity_data_binding_controller"/>
-
-		<Button
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center"
-			android:onClick="showFragmentTest"
-			android:text="@string/activity_fragment_test"/>
+			android:text="@string/activity_data_binding_controller" />
 	</LinearLayout>
 
-</FrameLayout>
+</LinearLayout>
