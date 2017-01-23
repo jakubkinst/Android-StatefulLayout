@@ -1,5 +1,10 @@
 apply plugin: 'com.android.library'
 
+ext {
+	bintrayName = 'stateful-layout-simple'
+	artifact = 'stateful-layout-simple'
+}
+
 android {
 	compileSdkVersion 25
 	buildToolsVersion "25.0.2"
@@ -8,7 +13,7 @@ android {
 		minSdkVersion 14
 		targetSdkVersion 25
 		versionCode 3
-		versionName "2.0"
+		versionName libraryVersion
 		vectorDrawables.useSupportLibrary = true
 	}
 	buildTypes {
@@ -32,3 +37,5 @@ dependencies {
 	compile 'com.android.support:appcompat-v7:25.1.0'
 	compile 'com.android.support:transition:25.1.0'
 }
+
+apply from: '../publish.gradle'

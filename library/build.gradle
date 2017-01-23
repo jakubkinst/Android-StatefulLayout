@@ -1,9 +1,8 @@
 apply plugin: 'com.android.library'
 
 ext {
-	PUBLISH_GROUP_ID = 'cz.kinst.jakub'
-	PUBLISH_ARTIFACT_ID = 'stateful-layout'
-	PUBLISH_VERSION = '1.1.5'
+	bintrayName = 'stateful-layout-base'
+	artifact = 'stateful-layout-base'
 }
 
 android {
@@ -14,7 +13,7 @@ android {
 		minSdkVersion 14
 		targetSdkVersion 25
 		versionCode 3
-		versionName PUBLISH_VERSION
+		versionName libraryVersion
 	}
 	buildTypes {
 		release {
@@ -35,3 +34,5 @@ dependencies {
 	compile fileTree(dir: 'libs', include: ['*.jar'])
 	compile 'com.android.support:support-annotations:25.1.0'
 }
+
+apply from: '../publish.gradle'
