@@ -1,1 +1,1 @@
-include ':sample', ':library', ':library-simple'
+include ':android-stateful-layout-base', ':android-stateful-layout-simple', ':sample'

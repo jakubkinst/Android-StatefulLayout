@@ -11,7 +11,6 @@ ext {
 
 	publishedGroupId = 'cz.kinst.jakub'
 	libraryName = 'Android-StatefulLayout'
-	artifact = 'stateful-layout-base'
 
 	libraryDescription = 'A custom Android ViewGroup to display different states of screen (CONTENT, PROGRESS, OFFLINE, EMPTY, etc.)'
 

@@ -8,8 +8,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/library" />
-            <option value="$PROJECT_DIR$/library-simple" />
+            <option value="$PROJECT_DIR$/android-stateful-layout-base" />
+            <option value="$PROJECT_DIR$/android-stateful-layout-simple" />
             <option value="$PROJECT_DIR$/sample" />
           </set>
         </option>

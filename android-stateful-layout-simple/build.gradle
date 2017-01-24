@@ -1,8 +1,8 @@
 apply plugin: 'com.android.library'
 
 ext {
-	bintrayName = 'stateful-layout-base'
-	artifact = 'stateful-layout-base'
+	bintrayName = 'android-stateful-layout-simple'
+	artifact = 'android-stateful-layout-simple'
 }
 
 android {
@@ -14,6 +14,7 @@ android {
 		targetSdkVersion 25
 		versionCode 3
 		versionName libraryVersion
+		vectorDrawables.useSupportLibrary = true
 	}
 	buildTypes {
 		release {
@@ -32,7 +33,9 @@ android {
 
 dependencies {
 	compile fileTree(dir: 'libs', include: ['*.jar'])
-	compile 'com.android.support:support-annotations:25.1.0'
+	compile project(':android-stateful-layout-base')
+	compile 'com.android.support:appcompat-v7:25.1.0'
+	compile 'com.android.support:transition:25.1.0'
 }
 
 apply from: '../publish.gradle'
