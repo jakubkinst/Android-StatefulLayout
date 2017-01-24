@@ -5,7 +5,7 @@
     compile 'cz.kinst.jakub:android-stateful-layout-base:2.0.1'
     
 This is a base class you should **use if you want to have completely custom set of states/views**. You can either **inherit** and add custom states in constructor 
-(see `SimpleStateLayout` as an example) or you can use directly `StatefulLayout` and **add states dynamically in your code** via `setStateView()`. Raw `StatefulLayout` 
+(see `SimpleStatefulLayout` as an example) or you can use directly `StatefulLayout` and **add states dynamically in your code** via `setStateView()`. Raw `StatefulLayout` 
 contains only one state - `StatefulLayout.State.CONTENT` with whatever child is inside the XML content of the tag.
 
 ### Example
@@ -57,6 +57,9 @@ stateController.setState(STATE_PROGRESS);
 
 ## SimpleStatefulLayout
     compile 'cz.kinst.jakub:android-stateful-layout-simple:2.0.1'
+    
+`SimpleStatefulLayout` extends `StatefulLayout` and **adds couple of useful states** for most apps - `State.OFFLINE`, `State.PROGRESS`, `State.EMPTY`. It provides customizable layout
+placeholder for these states as well as a way to provide completely custom layouts for the states.
 
 ### Example
 ```xml
@@ -68,6 +71,12 @@ stateController.setState(STATE_PROGRESS);
 	<!--Your Content Here-->
 		
 </cz.kinst.jakub.view.SimpleStatefulLayout>
+```
+```java
+// in onCreate()
+statefulLayout.showProgress();
+// load data
+statefulLayout.showContent();
 ```
 
 ### Optional Attributes
