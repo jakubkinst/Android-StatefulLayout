@@ -86,7 +86,6 @@ statefulLayout.showContent();
 - `app:offlineRetryText` Text for a retry button in OFFLINE state
 - `app:emptyText` Custom text to show when in OFFLINE state
 - `app:offlineImageDrawable` Custom image to show above the offline state text (if not using custom layout)
-- `app:offlineImageDrawable` Custom image to show above the offline state text (if not using custom layout)
 - `app:emptyImageDrawable` Custom image to show above the empty state text (if not using custom layout)
 - `app:offlineLayout` Custom layout to show when in OFFLINE state
 - `app:emptyLayout` Custom layout to show when in EMPTY state
