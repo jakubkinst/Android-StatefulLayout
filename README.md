@@ -61,6 +61,8 @@ stateController.setState(STATE_PROGRESS);
 `SimpleStatefulLayout` extends `StatefulLayout` and **adds couple of useful states** for most apps - `State.OFFLINE`, `State.PROGRESS`, `State.EMPTY`. It provides customizable layout
 placeholder for these states as well as a way to provide completely custom layouts for the states.
 
+You can also customize this by extending the class or adddd states by using `setStateView()`.
+
 ### Example
 ```xml
 <cz.kinst.jakub.view.SimpleStatefulLayout
