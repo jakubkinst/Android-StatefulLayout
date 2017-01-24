@@ -9,7 +9,6 @@ import android.view.View;
 
 import cz.kinst.jakub.sample.statefullayout.databinding.ActivityDataBindingControllerBinding;
 import cz.kinst.jakub.sample.statefullayout.databinding.CustomGenericBinding;
-import cz.kinst.jakub.view.StateController;
 import cz.kinst.jakub.view.StatefulLayout;
 
 
@@ -18,7 +17,7 @@ public class DataBindingControllerActivity extends AppCompatActivity {
 	public static final String STATE_1 = "state_1";
 	public static final String STATE_2 = "state_2";
 	public static final String STATE_3 = "state_3";
-	private StateController mStateController;
+	private StatefulLayout.StateController mStateController;
 
 
 	public static Intent newIntent(Context context) {
@@ -38,7 +37,7 @@ public class DataBindingControllerActivity extends AppCompatActivity {
 		CustomGenericBinding state3 = CustomGenericBinding.inflate(getLayoutInflater());
 		state3.setContent("State 3");
 
-		mStateController = StateController.create()
+		mStateController = StatefulLayout.StateController.create()
 				.withState(STATE_1, state1.getRoot())
 				.withState(STATE_2, state2.getRoot())
 				.withState(STATE_3, state3.getRoot())

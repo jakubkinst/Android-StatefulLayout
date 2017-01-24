@@ -1,0 +1,33 @@
+language: android
+sudo: false
+jdk: oraclejdk8
+env:
+  matrix:
+    - ANDROID_TARGET=android-25 ANDROID_ABI=armeabi-v7a
+
+android:
+  components:
+  - platform-tools
+  - tools
+  - build-tools-25.0.2
+  - android-25
+
+  # Additional components
+  - extra-google-m2repository
+  - extra-android-m2repository
+  - extra-android-support
+
+cache:
+  directories:
+    - $HOME/.gradle/caches/2.9
+    - $HOME/.gradle/caches/jars-1
+    - $HOME/.gradle/daemon
+    - $HOME/.gradle/native
+    - $HOME/.gradle/wrapper
+
+
+script:
+# Unit tests
+  - ./gradlew testReleaseUnitTest
+# If successful and Git TAG exists - publish to Bintray
+  - '[[ -z $TRAVIS_TAG ]]  || ./gradlew bintrayUpload -q'

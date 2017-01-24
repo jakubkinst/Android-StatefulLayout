@@ -179,4 +179,58 @@ public class StatefulLayout extends FrameLayout {
 		public static final String CONTENT = "content";
 	}
 
+
+	public static class StateController {
+		private Map<String, View> mStateMap = new HashMap<>();
+		private String mState = State.CONTENT;
+		private OnStateChangeListener mListener;
+
+
+		private StateController() {
+		}
+
+
+		public static Builder create() {
+			return new Builder();
+		}
+
+
+		public Map<String, View> getStates() {
+			return mStateMap;
+		}
+
+
+		public String getState() {
+			return mState;
+		}
+
+
+		public void setState(String newState) {
+			mState = newState;
+			if(mListener != null)
+				mListener.onStateChange(newState);
+		}
+
+
+		void setOnStateChangeListener(final OnStateChangeListener listener) {
+			mListener = listener;
+		}
+
+
+		public static class Builder {
+			StateController mStateController = new StateController();
+
+
+			public Builder withState(String state, View stateView) {
+				mStateController.mStateMap.put(state, stateView);
+				return this;
+			}
+
+
+			public StateController build() {
+				return mStateController;
+			}
+
+		}
+	}
 }

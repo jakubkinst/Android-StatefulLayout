@@ -22,7 +22,7 @@ import cz.kinst.jakub.view.simple.R;
 public class SimpleStatefulLayout extends StatefulLayout {
 
 	private String mInitialState = State.CONTENT;
-	private boolean mTransitionEnabled = true;
+	private boolean mTransitionsEnabled = true;
 
 
 	public class State extends StatefulLayout.State {
@@ -182,7 +182,7 @@ public class SimpleStatefulLayout extends StatefulLayout {
 
 	@Override
 	public void setState(String state) {
-		if(isTransitionEnabled())
+		if(isTransitionsEnabled())
 			TransitionManager.beginDelayedTransition(this);
 		super.setState(state);
 	}
@@ -231,13 +231,13 @@ public class SimpleStatefulLayout extends StatefulLayout {
 	}
 
 
-	public boolean isTransitionEnabled() {
-		return mTransitionEnabled;
+	public boolean isTransitionsEnabled() {
+		return mTransitionsEnabled;
 	}
 
 
-	public void setTransitionEnabled(boolean transitionEnabled) {
-		mTransitionEnabled = transitionEnabled;
+	public void setTransitionsEnabled(boolean transitionsEnabled) {
+		mTransitionsEnabled = transitionsEnabled;
 	}
 
 
