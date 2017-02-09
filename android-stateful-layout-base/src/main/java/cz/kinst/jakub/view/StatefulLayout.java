@@ -24,7 +24,7 @@ public class StatefulLayout extends FrameLayout {
 	private static final String SAVED_STATE = "stateful_layout_state";
 
 	private Map<String, View> mStateViews = new HashMap<>();
-	private String mState = State.CONTENT;
+	private String mState;
 	private OnStateChangeListener mOnStateChangeListener;
 	private boolean mInitialized;
 
@@ -171,6 +171,7 @@ public class StatefulLayout extends FrameLayout {
 		View contentView = getChildAt(mStateViews.size());
 		removeView(contentView);
 		setStateView(State.CONTENT, contentView);
+		setState(State.CONTENT);
 		mInitialized = true;
 	}
 
