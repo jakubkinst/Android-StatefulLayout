@@ -25,14 +25,6 @@ public class SimpleStatefulLayout extends StatefulLayout {
 	private boolean mTransitionsEnabled = true;
 
 
-	public class State extends StatefulLayout.State {
-		// Note: CONTENT state is inherited from parent
-		public static final String PROGRESS = "progress";
-		public static final String OFFLINE = "offline";
-		public static final String EMPTY = "empty";
-	}
-
-
 	public SimpleStatefulLayout(Context context) {
 		super(context);
 		init(context, null);
@@ -51,57 +43,19 @@ public class SimpleStatefulLayout extends StatefulLayout {
 	}
 
 
-	private void init(Context context, AttributeSet attrs) {
-		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SflStatefulLayout);
-
-		int offlineLayoutResource = a.getResourceId(R.styleable.SflStatefulLayout_offlineLayout, R.layout.sfl_default_placeholder_offline);
-		int emptyLayoutResource = a.getResourceId(R.styleable.SflStatefulLayout_emptyLayout, R.layout.sfl_default_placeholder_empty);
-		int progressLayoutResource = a.getResourceId(R.styleable.SflStatefulLayout_progressLayout, R.layout.sfl_default_placeholder_progress);
-
-		setStateView(State.OFFLINE, LayoutInflater.from(getContext()).inflate(offlineLayoutResource, null));
-		setStateView(State.EMPTY, LayoutInflater.from(getContext()).inflate(emptyLayoutResource, null));
-		setStateView(State.PROGRESS, LayoutInflater.from(getContext()).inflate(progressLayoutResource, null));
-
-		int textAppearance = a.getResourceId(R.styleable.SflStatefulLayout_stateTextAppearance, R.style.sfl_TextAppearanceStateDefault);
-		setTextAppearance(textAppearance);
-
-		// setState custom empty text
-		if(a.hasValue(R.styleable.SflStatefulLayout_emptyText)) {
-			setEmptyText(a.getString(R.styleable.SflStatefulLayout_emptyText));
-		}
-
-		// setState custom offline text
-		if(a.hasValue(R.styleable.SflStatefulLayout_offlineText)) {
-			setOfflineText(a.getString(R.styleable.SflStatefulLayout_offlineText));
-		}
-
-		// setState custom offline retry text
-		if(a.hasValue(R.styleable.SflStatefulLayout_offlineRetryText)) {
-			setOfflineText(a.getString(R.styleable.SflStatefulLayout_offlineRetryText));
-		}
-
-		if(a.hasValue(R.styleable.SflStatefulLayout_offlineImageDrawable)) {
-			setOfflineImageResource(a.getResourceId(R.styleable.SflStatefulLayout_offlineImageDrawable, 0));
-		}
-
-		if(a.hasValue(R.styleable.SflStatefulLayout_emptyImageDrawable)) {
-			setEmptyImageResource(a.getResourceId(R.styleable.SflStatefulLayout_emptyImageDrawable, 0));
-		}
-
-		// getState initial state if setState
-		if(a.hasValue(R.styleable.SflStatefulLayout_state)) {
-			mInitialState = a.getString(R.styleable.SflStatefulLayout_state);
-		}
-
-		a.recycle();
-	}
-
-
 	@Override
 	protected void onSetupContentState() {
 		super.onSetupContentState();
 		if(mInitialState != null)
 			setState(mInitialState);
+	}
+
+
+	@Override
+	public void setState(String state) {
+		if(isTransitionsEnabled())
+			TransitionManager.beginDelayedTransition(this);
+		super.setState(state);
 	}
 
 
@@ -127,9 +81,11 @@ public class SimpleStatefulLayout extends StatefulLayout {
 
 	public void setTextAppearance(int textAppearance) {
 		TextView offlineTextView = ((TextView) getOfflineView().findViewById(R.id.state_text));
-		offlineTextView.setTextAppearance(getContext(), textAppearance);
+		if(offlineTextView != null)
+			offlineTextView.setTextAppearance(getContext(), textAppearance);
 		TextView emptyTextView = ((TextView) getEmptyView().findViewById(R.id.state_text));
-		emptyTextView.setTextAppearance(getContext(), textAppearance);
+		if(emptyTextView != null)
+			emptyTextView.setTextAppearance(getContext(), textAppearance);
 	}
 
 
@@ -177,14 +133,6 @@ public class SimpleStatefulLayout extends StatefulLayout {
 			image.setVisibility(drawable != null ? VISIBLE : GONE);
 			image.setImageDrawable(drawable);
 		}
-	}
-
-
-	@Override
-	public void setState(String state) {
-		if(isTransitionsEnabled())
-			TransitionManager.beginDelayedTransition(this);
-		super.setState(state);
 	}
 
 
@@ -255,6 +203,60 @@ public class SimpleStatefulLayout extends StatefulLayout {
 		Button button = ((Button) getOfflineView().findViewById(R.id.state_button));
 		if(button != null)
 			button.setText(text);
+	}
+
+
+	private void init(Context context, AttributeSet attrs) {
+		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SflStatefulLayout);
+
+		int offlineLayoutResource = a.getResourceId(R.styleable.SflStatefulLayout_offlineLayout, R.layout.sfl_default_placeholder_offline);
+		int emptyLayoutResource = a.getResourceId(R.styleable.SflStatefulLayout_emptyLayout, R.layout.sfl_default_placeholder_empty);
+		int progressLayoutResource = a.getResourceId(R.styleable.SflStatefulLayout_progressLayout, R.layout.sfl_default_placeholder_progress);
+
+		setStateView(State.OFFLINE, LayoutInflater.from(getContext()).inflate(offlineLayoutResource, null));
+		setStateView(State.EMPTY, LayoutInflater.from(getContext()).inflate(emptyLayoutResource, null));
+		setStateView(State.PROGRESS, LayoutInflater.from(getContext()).inflate(progressLayoutResource, null));
+
+		int textAppearance = a.getResourceId(R.styleable.SflStatefulLayout_stateTextAppearance, R.style.sfl_TextAppearanceStateDefault);
+		setTextAppearance(textAppearance);
+
+		// setState custom empty text
+		if(a.hasValue(R.styleable.SflStatefulLayout_emptyText)) {
+			setEmptyText(a.getString(R.styleable.SflStatefulLayout_emptyText));
+		}
+
+		// setState custom offline text
+		if(a.hasValue(R.styleable.SflStatefulLayout_offlineText)) {
+			setOfflineText(a.getString(R.styleable.SflStatefulLayout_offlineText));
+		}
+
+		// setState custom offline retry text
+		if(a.hasValue(R.styleable.SflStatefulLayout_offlineRetryText)) {
+			setOfflineText(a.getString(R.styleable.SflStatefulLayout_offlineRetryText));
+		}
+
+		if(a.hasValue(R.styleable.SflStatefulLayout_offlineImageDrawable)) {
+			setOfflineImageResource(a.getResourceId(R.styleable.SflStatefulLayout_offlineImageDrawable, 0));
+		}
+
+		if(a.hasValue(R.styleable.SflStatefulLayout_emptyImageDrawable)) {
+			setEmptyImageResource(a.getResourceId(R.styleable.SflStatefulLayout_emptyImageDrawable, 0));
+		}
+
+		// getState initial state if setState
+		if(a.hasValue(R.styleable.SflStatefulLayout_state)) {
+			mInitialState = a.getString(R.styleable.SflStatefulLayout_state);
+		}
+
+		a.recycle();
+	}
+
+
+	public class State extends StatefulLayout.State {
+		// Note: CONTENT state is inherited from parent
+		public static final String PROGRESS = "progress";
+		public static final String OFFLINE = "offline";
+		public static final String EMPTY = "empty";
 	}
 
 }
