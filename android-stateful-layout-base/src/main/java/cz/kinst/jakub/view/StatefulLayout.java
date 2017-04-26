@@ -103,10 +103,12 @@ public class StatefulLayout extends FrameLayout {
 		if(mState != null && mState.equals(state))
 			return;
 
-		mState = state;
-		for(String s : mStateViews.keySet()) {
-			mStateViews.get(s).setVisibility(s.equals(state) ? View.VISIBLE : View.GONE);
+		View previousView = mStateViews.get(mState);
+		if (previousView != null) {
+			previousView.setVisibility(View.GONE);
 		}
+		mState = state;
+		mStateViews.get(state).setVisibility(View.VISIBLE);
 
 		if(mOnStateChangeListener != null)
 			mOnStateChangeListener.onStateChange(state);
