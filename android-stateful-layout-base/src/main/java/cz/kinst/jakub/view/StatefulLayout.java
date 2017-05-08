@@ -27,6 +27,7 @@ public class StatefulLayout extends FrameLayout {
 	private String mState;
 	private OnStateChangeListener mOnStateChangeListener;
 	private boolean mInitialized;
+	private boolean mDirtyFlag = false;
 
 
 	public interface OnStateChangeListener {
@@ -86,6 +87,7 @@ public class StatefulLayout extends FrameLayout {
 			addView(view);
 		}
 		view.setVisibility(GONE);
+		mDirtyFlag = true;
 	}
 
 
@@ -100,7 +102,7 @@ public class StatefulLayout extends FrameLayout {
 			throw new IllegalStateException(String.format("Cannot switch to state \"%s\". This state was not defined or the view for this state is null."));
 		}
 
-		if(mState != null && mState.equals(state))
+		if(mState != null && mState.equals(state) && !mDirtyFlag)
 			return;
 
 		mState = state;
@@ -110,6 +112,8 @@ public class StatefulLayout extends FrameLayout {
 
 		if(mOnStateChangeListener != null)
 			mOnStateChangeListener.onStateChange(state);
+
+		mDirtyFlag = false;
 	}
 
 
