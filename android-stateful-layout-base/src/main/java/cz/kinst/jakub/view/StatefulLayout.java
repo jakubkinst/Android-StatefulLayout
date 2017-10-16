@@ -69,7 +69,7 @@ public class StatefulLayout extends FrameLayout {
 
 	@Override
 	protected void onRestoreInstanceState(Parcelable state) {
-		if(state instanceof Bundle) {
+		if(state instanceof Bundle && mState == null) {
 			Bundle bundle = (Bundle) state;
 			restoreInstanceState(bundle);
 			state = bundle.getParcelable(SAVED_INSTANCE_STATE);
