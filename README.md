@@ -2,7 +2,7 @@
 ![alt text](screen.gif)
 
 ## StatefulLayout
-    compile 'cz.kinst.jakub:android-stateful-layout-base:2.0.7'
+    implementation 'cz.kinst.jakub:android-stateful-layout-base:2.0.7'
     
 This is a base class you should **use if you want to have completely custom set of states/views**. You can either **inherit** and add custom states in constructor 
 (see `SimpleStatefulLayout` as an example) or you can use directly `StatefulLayout` and **add states dynamically in your code** via `setStateView()`. Raw `StatefulLayout` 
@@ -56,7 +56,7 @@ stateController.setState(STATE_PROGRESS);
 ```
 
 ## SimpleStatefulLayout
-    compile 'cz.kinst.jakub:android-stateful-layout-simple:2.0.7'
+    implementation 'cz.kinst.jakub:android-stateful-layout-simple:2.0.7'
     
 `SimpleStatefulLayout` extends `StatefulLayout` and **adds couple of useful states** for most apps - `State.OFFLINE`, `State.PROGRESS`, `State.EMPTY`. It provides customizable layout
 placeholder for these states as well as a way to provide completely custom layouts for the states.
