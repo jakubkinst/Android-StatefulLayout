@@ -195,7 +195,7 @@ public class SimpleStatefulLayout extends StatefulLayout {
 
 
 	public void setOfflineRetryText(@StringRes int textResourceId) {
-		setOfflineText(getResources().getString(textResourceId));
+		setOfflineRetryText(getResources().getString(textResourceId));
 	}
 
 
