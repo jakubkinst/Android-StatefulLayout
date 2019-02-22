@@ -195,7 +195,7 @@ public class SimpleStatefulLayout extends StatefulLayout {
 
 
 	public void setOfflineRetryText(@StringRes int textResourceId) {
-		setOfflineText(getResources().getString(textResourceId));
+		setOfflineRetryText(getResources().getString(textResourceId));
 	}
 
 
@@ -232,7 +232,7 @@ public class SimpleStatefulLayout extends StatefulLayout {
 
 		// setState custom offline retry text
 		if(a.hasValue(R.styleable.SflStatefulLayout_offlineRetryText)) {
-			setOfflineText(a.getString(R.styleable.SflStatefulLayout_offlineRetryText));
+			setOfflineRetryText(a.getString(R.styleable.SflStatefulLayout_offlineRetryText));
 		}
 
 		if(a.hasValue(R.styleable.SflStatefulLayout_offlineImageDrawable)) {
